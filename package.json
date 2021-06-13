@@ -1,0 +1,34 @@
+{
+  "name": "@prelude/parser",
+  "version": "0.0.0",
+  "description": "Parser combinators module.",
+  "type": "module",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "tsc && NODE_OPTIONS=--experimental-vm-modules jest",
+    "update": "npx npm-check --update --save-exact"
+  },
+  "keywords": [
+    "prelude",
+    "std",
+    "lib",
+    "stdlib",
+    "library",
+    "parse",
+    "parser",
+    "combinators",
+    "functional"
+  ],
+  "author": "Mirek Rusin (https://github.com/mirek)",
+  "license": "MIT",
+  "devDependencies": {
+    "@tsconfig/node14": "1.0.0",
+    "@types/jest": "26.0.23",
+    "eslint": "7.27.0",
+    "jest": "27.0.1",
+    "typescript": "4.2.4"
+  }
+}
