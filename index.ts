@@ -1,6 +1,6 @@
 import * as Input from './input.js'
 import * as Rfc8259 from './rfc8259.js'
-import ascii from './ascii.js'
+import utf8 from './utf8.js'
 import charRange from './char-range.js'
 import either from './either.js'
 import enclosed from './enclosed.js'
@@ -28,7 +28,7 @@ import ws0 from './ws0.js'
 import ws1 from './ws1.js'
 
 export {
-  ascii,
+  utf8,
   charRange,
   either,
   enclosed,

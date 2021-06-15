@@ -2,6 +2,7 @@ import Invalid from './invalid'
 import type P from './parser'
 import type R from './result'
 
+/** @returns parser matching at least `min` (default 0) times `a` parser. */
 const star =
   <A>(a: P<A>, min = 0): P<A[]> =>
     input => {

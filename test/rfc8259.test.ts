@@ -1,10 +1,7 @@
-import * as P from '../index.js'
 import * as Rfc8259 from '../rfc8259.js'
 
-const p = P.exhaustive(Rfc8259.jsonText)
-
 test('basic', () => {
-  expect(p(`
+  expect(Rfc8259.parse(`
     {
       "Image": {
         "Width":  800,
@@ -20,136 +17,96 @@ test('basic', () => {
       }
     }
   `)).toEqual({
-    "type": "@prelude/parser/rfc8259/Object",
+    "type": "object",
     "members": [
-      {
-        "type": "@prelude/parser/rfc8259/Member",
-        "name": {
-          "type": "@prelude/parser/rfc8259/String",
-          "value": "Image"
-        },
-        "value": {
-          "type": "@prelude/parser/rfc8259/Object",
+      [
+        "Image",
+        {
+          "type": "object",
           "members": [
-            {
-              "type": "@prelude/parser/rfc8259/Member",
-              "name": {
-                "type": "@prelude/parser/rfc8259/String",
-                "value": "Width"
-              },
-              "value": {
-                "type": "@prelude/parser/rfc8259/Number",
+            [
+              "Width",
+              {
+                "type": "number",
                 "value": "800"
               }
-            },
-            {
-              "type": "@prelude/parser/rfc8259/Member",
-              "name": {
-                "type": "@prelude/parser/rfc8259/String",
-                "value": "Height"
-              },
-              "value": {
-                "type": "@prelude/parser/rfc8259/Number",
+            ],
+            [
+              "Height",
+              {
+                "type": "number",
                 "value": "600"
               }
-            },
-            {
-              "type": "@prelude/parser/rfc8259/Member",
-              "name": {
-                "type": "@prelude/parser/rfc8259/String",
-                "value": "Title"
-              },
-              "value": {
-                "type": "@prelude/parser/rfc8259/String",
+            ],
+            [
+              "Title",
+              {
+                "type": "string",
                 "value": "View from 15th Floor"
               }
-            },
-            {
-              "type": "@prelude/parser/rfc8259/Member",
-              "name": {
-                "type": "@prelude/parser/rfc8259/String",
-                "value": "Thumbnail"
-              },
-              "value": {
-                "type": "@prelude/parser/rfc8259/Object",
+            ],
+            [
+              "Thumbnail",
+              {
+                "type": "object",
                 "members": [
-                  {
-                    "type": "@prelude/parser/rfc8259/Member",
-                    "name": {
-                      "type": "@prelude/parser/rfc8259/String",
-                      "value": "Url"
-                    },
-                    "value": {
-                      "type": "@prelude/parser/rfc8259/String",
+                  [
+                    "Url",
+                    {
+                      "type": "string",
                       "value": "http://www.example.com/image/481989943"
                     }
-                  },
-                  {
-                    "type": "@prelude/parser/rfc8259/Member",
-                    "name": {
-                      "type": "@prelude/parser/rfc8259/String",
-                      "value": "Height"
-                    },
-                    "value": {
-                      "type": "@prelude/parser/rfc8259/Number",
+                  ],
+                  [
+                    "Height",
+                    {
+                      "type": "number",
                       "value": "125"
                     }
-                  },
-                  {
-                    "type": "@prelude/parser/rfc8259/Member",
-                    "name": {
-                      "type": "@prelude/parser/rfc8259/String",
-                      "value": "Width"
-                    },
-                    "value": {
-                      "type": "@prelude/parser/rfc8259/Number",
+                  ],
+                  [
+                    "Width",
+                    {
+                      "type": "number",
                       "value": "100"
                     }
-                  }
+                  ]
                 ]
               }
-            },
-            {
-              "type": "@prelude/parser/rfc8259/Member",
-              "name": {
-                "type": "@prelude/parser/rfc8259/String",
-                "value": "Animated"
-              },
-              "value": {
-                "type": "@prelude/parser/rfc8259/False"
+            ],
+            [
+              "Animated",
+              {
+                "type": "false"
               }
-            },
-            {
-              "type": "@prelude/parser/rfc8259/Member",
-              "name": {
-                "type": "@prelude/parser/rfc8259/String",
-                "value": "IDs"
-              },
-              "value": {
-                "type": "@prelude/parser/rfc8259/Array",
-                "values": [
+            ],
+            [
+              "IDs",
+              {
+                "type": "array",
+                "elements": [
                   {
-                    "type": "@prelude/parser/rfc8259/Number",
+                    "type": "number",
                     "value": "116"
                   },
                   {
-                    "type": "@prelude/parser/rfc8259/Number",
+                    "type": "number",
                     "value": "943"
                   },
                   {
-                    "type": "@prelude/parser/rfc8259/Number",
+                    "type": "number",
                     "value": "234"
                   },
                   {
-                    "type": "@prelude/parser/rfc8259/Number",
+                    "type": "number",
                     "value": "38793"
                   }
                 ]
               }
-            }
+            ]
           ]
         }
-      }
+      ]
     ]
   })
 })

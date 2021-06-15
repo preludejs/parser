@@ -10,6 +10,57 @@ npm i -E @prelude/parser
 import * as P from '@prelude/parser'
 ```
 
+# Rules
+
+* [rfc5234](https://datatracker.ietf.org/doc/html/rfc5234) – Augmented BNF for Syntax Specifications: ABNF
+* [rfc8259](https://datatracker.ietf.org/doc/html/rfc8259) – The JavaScript Object Notation (JSON) Data Interchange Format
+
+## Top level rules
+
+* char-range
+* char-ranges
+* either
+* enclosed
+* exhaustive
+* literal
+* map
+* maybe
+* pair
+* right
+* separated0
+* separated1
+* separated2
+* sequence
+* star
+* times
+* trim
+* union
+* utf8
+* ws0
+* ws1
+
+## Top level helpers
+
+* Input
+* Invalid
+* join
+* ParserResult
+* Rfc8259
+
+## [rfc5234](https://datatracker.ietf.org/doc/html/rfc5234) – Augmented BNF for Syntax Specifications: ABNF
+
+* alpha
+* bit
+* char
+
+## [rfc8259](https://datatracker.ietf.org/doc/html/rfc8259) – The JavaScript Object Notation (JSON) Data Interchange Format
+
+* false
+* null
+* trim
+* true
+* ws
+
 # License
 
 ```
