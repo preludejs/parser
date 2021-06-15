@@ -3,7 +3,7 @@ import * as Rfc8259 from './rfc8259.js'
 import utf8 from './utf8.js'
 import charRange from './char-range.js'
 import either from './either.js'
-import enclosed from './enclosed.js'
+import sorrounded from './sorrounded.js'
 import exhaustive from './exhaustive.js'
 import Invalid from './invalid.js'
 import join from './join.js'
@@ -31,7 +31,7 @@ export {
   utf8,
   charRange,
   either,
-  enclosed,
+  sorrounded,
   exhaustive,
   Input,
   Invalid,

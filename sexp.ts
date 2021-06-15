@@ -1,7 +1,7 @@
 import * as Rfc8259 from './rfc8259.js'
 import charRanges from './char-ranges.js'
 import either from './either.js'
-import enclosed from './enclosed.js'
+import sorrounded from './sorrounded.js'
 import exhaustive from './exhaustive.js'
 import join from './join.js'
 import literal from './literal.js'
@@ -33,7 +33,7 @@ export const rparen =
 
 export const sexp: P<Sexp> =
   input =>
-    enclosed(lparen, rparen, separated0(ws1, either(string, sexp)))(input)
+    sorrounded(lparen, rparen, separated0(ws1, either(string, sexp)))(input)
 
 export const parse =
   exhaustive(sexp)

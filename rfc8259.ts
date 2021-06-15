@@ -1,6 +1,6 @@
 import charRange from './char-range.js'
 import either from './either.js'
-import enclosed from './enclosed.js'
+import sorrounded from './sorrounded.js'
 import exhaustive from './exhaustive.js'
 import join from './join.js'
 import literal from './literal.js'
@@ -137,7 +137,7 @@ export const char =
   either(unescaped, escaped)
 
 export const string_: P<JsonString> =
-  map(join(enclosed(quotationMark, quotationMark, star(char))), _ => ({ type: 'string' as const, value: _ }))
+  map(join(sorrounded(quotationMark, quotationMark, star(char))), _ => ({ type: 'string' as const, value: _ }))
 
 export const value: P<JsonNull | JsonFalse | JsonTrue | JsonNumber | JsonString | JsonArray | JsonObject> =
   input =>
@@ -147,10 +147,10 @@ export const member =
   map(sequence(string_, nameSeparator, value), _ => [_[0].value, _[2]] as [string, Json])
 
 export const array: P<JsonArray> =
-  map(enclosed(beginArray, endArray, separated0(valueSeparator, value)), _ => ({ type: 'array', elements: _ }))
+  map(sorrounded(beginArray, endArray, separated0(valueSeparator, value)), _ => ({ type: 'array', elements: _ }))
 
 export const object: P<JsonObject> =
-  map(enclosed(beginObject, endObject, separated0(valueSeparator, member)), _ => ({ type: 'object', members: _ }))
+  map(sorrounded(beginObject, endObject, separated0(valueSeparator, member)), _ => ({ type: 'object', members: _ }))
 
 export const json =
   trim(value)

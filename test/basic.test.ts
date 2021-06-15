@@ -17,15 +17,15 @@ test('trim', () => {
   expect(p('  aab \n')).toEqual([ 'a', 'a', 'b' ])
 })
 
-test('enclosed', () => {
+test('sorrounded', () => {
   const number = P.map(P.whileChar('0123456789'), parseFloat)
-  const enclosed = P.enclosed(P.literal('('), P.literal(')'), number)
-  const p = P.exhaustive(P.trim(enclosed))
+  const sorrounded = P.sorrounded(P.literal('('), P.literal(')'), number)
+  const p = P.exhaustive(P.trim(sorrounded))
   expect(p(' (123)\n')).toEqual(123)
 })
 
 test('separated', () => {
   const number = P.map(P.whileChar('0123456789'), parseFloat)
-  const p = P.exhaustive(P.enclosed(P.literal('('), P.literal(')'), P.separated0(P.ws1, number)))
+  const p = P.exhaustive(P.sorrounded(P.literal('('), P.literal(')'), P.separated0(P.ws1, number)))
   expect(p('(1 23  456)')).toEqual([ 1, 23, 456 ])
 })
