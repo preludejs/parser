@@ -9,7 +9,9 @@
   },
   "scripts": {
     "test": "tsc && NODE_OPTIONS=--experimental-vm-modules jest",
-    "update": "npx npm-check --update --save-exact"
+    "update": "npx npm-check --update --save-exact",
+    "preversion": "npm test",
+    "postversion": "git push && git push --tags && npm publish"
   },
   "keywords": [
     "prelude",
