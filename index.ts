@@ -2,6 +2,7 @@ import * as Input from './input.js'
 import * as Rfc8259 from './rfc8259.js'
 import utf8 from './utf8.js'
 import charRange from './char-range.js'
+import charRanges from './char-ranges.js'
 import either from './either.js'
 import sorrounded from './sorrounded.js'
 import exhaustive from './exhaustive.js'
@@ -30,6 +31,7 @@ import ws1 from './ws1.js'
 export {
   utf8,
   charRange,
+  charRanges,
   either,
   sorrounded,
   exhaustive,
