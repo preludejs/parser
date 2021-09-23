@@ -5,6 +5,7 @@ import charRange from './char-range.js'
 import charRanges from './char-ranges.js'
 import either from './either.js'
 import sorrounded from './sorrounded.js'
+import sorrounded1 from './sorrounded1.js'
 import exhaustive from './exhaustive.js'
 import Invalid from './invalid.js'
 import join from './join.js'
@@ -34,6 +35,7 @@ export {
   charRanges,
   either,
   sorrounded,
+  sorrounded1,
   exhaustive,
   Input,
   Invalid,
