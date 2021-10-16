@@ -1,7 +1,7 @@
 import { inspect } from 'util'
-import * as Input from './input'
-import Invalid from './invalid'
-import type P from './parser'
+import * as Input from './input.js'
+import Invalid from './invalid.js'
+import type P from './parser.js'
 
 const charRanges =
   (...ranges: [min: string, max: string][]): P<string> =>

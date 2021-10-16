@@ -1,7 +1,7 @@
 import { inspect } from 'util'
-import * as Input from './input'
-import Invalid from './invalid'
-import type P from './parser'
+import * as Input from './input.js'
+import Invalid from './invalid.js'
+import type P from './parser.js'
 
 /** @returns parser matching `min-max` char range. */
 const charRange =

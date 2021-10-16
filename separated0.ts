@@ -1,6 +1,6 @@
-import Invalid from './invalid'
-import type P from './parser'
-import separated1 from './separated1'
+import Invalid from './invalid.js'
+import type P from './parser.js'
+import separated1 from './separated1.js'
 
 const separated0 =
   <A>(s: P<unknown>, a: P<A>): P<A[]> =>

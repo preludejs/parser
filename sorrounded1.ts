@@ -1,6 +1,6 @@
-import type P from './parser'
-import map from './map'
-import sequence from './sequence'
+import type P from './parser.js'
+import map from './map.js'
+import sequence from './sequence.js'
 
 /** @returns `a` parser sorrounded by `s` at the beginning and at the end. */
 const sorrounded1 =

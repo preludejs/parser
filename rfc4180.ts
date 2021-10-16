@@ -35,16 +35,16 @@
  */
 
 import charRanges from './char-ranges'
-import either from './either'
-import exhaustive from './exhaustive'
-import join from './join'
-import literal from './literal'
-import map from './map'
-import separated1 from './separated1'
-import sorrounded1 from './sorrounded1'
-import star from './star'
-import trim from './trim'
-import union from './union'
+import either from './either.js'
+import exhaustive from './exhaustive.js'
+import join from './join.js'
+import literal from './literal.js'
+import map from './map.js'
+import separated1 from './separated1.js'
+import sorrounded1 from './sorrounded1.js'
+import star from './star.js'
+import trim from './trim.js'
+import union from './union.js'
 
 export const dquote = literal('"')
 export const _2dquote = literal('""')

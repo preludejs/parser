@@ -1,6 +1,6 @@
-import pair from './pair'
-import map from './map'
-import type P from './parser'
+import pair from './pair.js'
+import map from './map.js'
+import type P from './parser.js'
 
 const right =
   <B>(a: P<unknown>, b: P<B>): P<B> =>

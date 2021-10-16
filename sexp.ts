@@ -9,8 +9,8 @@ import map from './map.js'
 import separated0 from './separated0.js'
 import star from './star.js'
 import trim from './trim.js'
-import type P from './parser'
-import ws1 from './ws1'
+import type P from './parser.js'
+import ws1 from './ws1.js'
 
 export type Sexp = string | Sexp[]
 

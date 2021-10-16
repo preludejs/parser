@@ -1,5 +1,5 @@
-import Invalid from './invalid'
-import type P from './parser'
+import Invalid from './invalid.js'
+import type P from './parser.js'
 
 const maybe =
   <A>(a: P<A>): P<undefined | A> =>

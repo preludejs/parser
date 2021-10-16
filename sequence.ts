@@ -1,6 +1,6 @@
-import type { Input } from './input'
-import type P from './parser'
-import type R from './parser-result'
+import type { Input } from './input.js'
+import type P from './parser.js'
+import type R from './parser-result.js'
 
 const sequence =
   <T extends P<unknown>[]>(...as: T): P<{ [K in keyof T]: R<T[K]> }> =>

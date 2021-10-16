@@ -1,5 +1,5 @@
-import map from './map'
-import type P from './parser'
+import map from './map.js'
+import type P from './parser.js'
 
 const join =
   (a: P<(undefined | string)[]>, glue = ''): P<string> =>

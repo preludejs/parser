@@ -1,4 +1,4 @@
-import * as Rfc4180 from '../rfc4180'
+import * as Rfc4180 from '../rfc4180.js'
 
 test('basic', () => {
   expect(Rfc4180.parse(`foo,bar,baz

@@ -1,5 +1,5 @@
-import type P from './parser'
-import type R from './result'
+import type P from './parser.js'
+import type R from './result.js'
 
 const times =
   <A>(n: number, a: P<A>): P<A[]> =>
