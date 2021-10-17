@@ -1,17 +1,12 @@
-import Invalid from './invalid.js'
-import type P from './parser.js'
+import { failed, Parser } from './prelude.js'
 
 const either =
-  <A, B>(a: P<A>, b: P<B>): P<A | B> =>
+  <A, B>(a: Parser<A>, b: Parser<B>): Parser<A | B> =>
     input => {
-      try {
-        return a(input)
-      } catch (err) {
-        if (err instanceof Invalid) {
-          return b(input)
-        }
-        throw err
-      }
+      const a_ = a(input)
+      return failed(a_) ?
+        b(input) :
+        a_
     }
 
 export default either

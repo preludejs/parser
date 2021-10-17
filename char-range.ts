@@ -1,17 +1,23 @@
-import { inspect } from 'util'
-import * as Input from './input.js'
-import Invalid from './invalid.js'
-import type P from './parser.js'
+import { peek, ok, fail, Parser } from './prelude.js'
 
-/** @returns parser matching `min-max` char range. */
+/**
+ * @returns parser matching provided character `ranges`.
+ * @example
+ *   charRange('09azAZ') // equivalent to /[0-9a-zA-Z]/ regexp.
+ */
 const charRange =
-  (min: string, max: string): P<string> =>
+  (ranges: string): Parser<string> =>
     input => {
-      const char = Input.unsafeAt(input, 0)
-      if (char < min || char > max) {
-        throw new Invalid(input, `Expected char in ${inspect(min)}..${inspect(max)} range.`)
+      const c = peek(input)
+      if (!c) {
+        return fail(input, 'End of input.')
       }
-      return [ Input.advanced(input, 1), char ]
+      for (let i = 0; i < ranges.length; i += 2) {
+        if (ranges[i] <= c && c <= ranges[i + 1]) {
+          return ok(input, c, 1)
+        }
+      }
+      return fail(input, `Not in char range ${ranges}.`)
     }
 
 export default charRange

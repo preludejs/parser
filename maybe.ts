@@ -1,17 +1,12 @@
-import Invalid from './invalid.js'
-import type P from './parser.js'
+import { ok, failed, Parser } from './prelude.js'
 
 const maybe =
-  <A>(a: P<A>): P<undefined | A> =>
+  <A>(a: Parser<A>): Parser<undefined | A> =>
     input => {
-      try {
-        return a(input)
-      } catch (err) {
-        if (err instanceof Invalid) {
-          return [ input, undefined ]
-        }
-        throw err
-      }
+      const a_ = a(input)
+      return failed(a_) ?
+        ok<undefined>(input, undefined, 0) :
+        a_
     }
 
 export default maybe

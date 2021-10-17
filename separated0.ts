@@ -1,18 +1,13 @@
-import Invalid from './invalid.js'
-import type P from './parser.js'
+import { ok, failed, Parser } from './prelude.js'
 import separated1 from './separated1.js'
 
 const separated0 =
-  <A>(s: P<unknown>, a: P<A>): P<A[]> =>
+  <A>(s: Parser<unknown>, a: Parser<A>): Parser<A[]> =>
     input => {
-      try {
-        return separated1(s, a)(input)
-      } catch (err) {
-        if (err instanceof Invalid) {
-          return [ input, [] ]
-        }
-        throw err
-      }
+      const a_ = separated1(s, a)(input)
+      return failed(a_) ?
+        ok(input, []) :
+        a_
     }
 
 export default separated0

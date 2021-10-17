@@ -7,6 +7,6 @@ import either from '../either.js'
  * @returns parser for controls.
  */
 const ctl =
-  either(charRange('\x00', '\x1f'), utf8('\x7f'))
+  either(charRange('\x00\x1f'), utf8('\x7f'))
 
 export default ctl

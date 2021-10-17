@@ -34,7 +34,7 @@
  *   TEXTDATA =  %x20-21 / %x23-2B / %x2D-7E
  */
 
-import charRanges from './char-ranges'
+import charRange from './char-range'
 import either from './either.js'
 import exhaustive from './exhaustive.js'
 import join from './join.js'
@@ -51,7 +51,7 @@ export const _2dquote = literal('""')
 export const lf = literal('\n')
 export const cr = literal('\r')
 export const cr0lf = either(literal(`\n`), literal('\r\n'))
-export const textdata = charRanges(['\x20', '\x21'], ['\x23', '\x2b'], ['\x2d', '\x7e'])
+export const textdata = charRange('\x20\x21\x23\x2b\x2d\x7e')
 export const comma = literal(',')
 export const nonEscaped = join(star(textdata))
 export const escaped = sorrounded1(dquote, join(star(union(textdata, comma, cr, lf, map(_2dquote, () => '"')))))

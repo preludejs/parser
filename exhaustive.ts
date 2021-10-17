@@ -1,15 +1,20 @@
-import * as Input from './input.js'
-import Invalid from './invalid.js'
-import type P from './parser.js'
+import { end, failed, Parser } from './prelude.js'
 
-const exhaustive: <A>(a: P<A>) => (string: string) => A =
-  a =>
-    string => {
-      const [ input_, r ] = a(Input.of(string))
-      if (!Input.end(input_)) {
-        throw new Invalid(input_, `Expected exhaustive result, got unparsed remaining length ${Input.remainingLength(input_)}.`)
+/**
+ * @returns top level string to result parser asserting all input has been parsed.
+ * @throws If parser fails or input is not fully exhausted.
+ */
+const exhaustive =
+  <A>(a: Parser<A>) =>
+    (inputString: string): A => {
+      const a_ = a([ inputString, 0 ])
+      if (failed(a_)) {
+        throw new Error(a_[2])
       }
-      return r
+      if (!end(a_[0])) {
+        throw new Error(`Expected exhaustive result, unparsed ${a_[0][0].length - a_[0][1]}.`)
+      }
+      return a_[1]
     }
 
 export default exhaustive

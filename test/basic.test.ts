@@ -1,10 +1,11 @@
 import * as P from '../index.js'
 
 test('simple', () => {
-  const p = P.either(P.literal('a'), P.literal('b'))
-  expect(p(P.Input.of('a'))).toEqual([ { string: 'a', offset: 1 }, 'a' ])
-  expect(p(P.Input.of('b'))).toEqual([ { string: 'b', offset: 1 }, 'b' ])
-  expect(() => p(P.Input.of('c'))).toThrow('At 0. Expected literal \'b\'.')
+  expect(P.exhaustive(P.literal('a'))('a')).toEqual('a')
+  const p = P.exhaustive(P.either(P.literal('a'), P.literal('b')))
+  expect(p('a')).toEqual('a')
+  expect(p('b')).toEqual('b')
+  expect(() => p('c')).toThrow('Expected b.')
 })
 
 test('star', () => {

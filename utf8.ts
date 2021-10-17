@@ -1,29 +1,14 @@
-import { inspect } from 'util'
-import * as Input from './input.js'
-import Invalid from './invalid.js'
-import type P from './parser.js'
+import { eat, peek, fail, includes, Parser } from './prelude.js'
 
-/** @returns parser matching one of provided utf8 chars. */
+/** @returns parser matching one of provided chars. */
 const utf8 =
-  (chars: string): P<string> =>
+  (chars: string): Parser<string> =>
     chars.length === 1 ?
-      input => {
-
-        // Safe to read out of bound `undefined` which simply won't match.
-        const char = Input.unsafeAt(input, 0)
-        if (chars !== char) {
-          throw new Invalid(input, `Expected one of utf8 chars ${inspect(chars.split(''))}.`)
-        }
-        return [ Input.advanced(input, 1), char ]
-      } :
-      input => {
-
-        // Safe to read out of bound `undefined` which simply won't match.
-        const char = Input.unsafeAt(input, 0)
-        if (!chars.includes(char)) {
-          throw new Invalid(input, `Expected one of utf8 chars ${inspect(chars.split(''))}.`)
-        }
-        return [ Input.advanced(input, 1), char ]
-      }
+      input => peek(input) === chars ?
+        eat(input, 1) :
+        fail(input, `Expected char ${chars}.`) :
+      input => includes(chars, peek(input)) ?
+        eat(input, 1) :
+        fail(input, `Expected one of chars ${chars}.`)
 
 export default utf8

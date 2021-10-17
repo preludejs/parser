@@ -1,28 +1,23 @@
-import Invalid from './invalid.js'
-import type P from './parser.js'
-import type R from './result.js'
+import { ok, fail, failed, Parser } from './prelude.js'
 
 /** @returns parser matching at least `min` (default 0) times `a` parser. */
-const star =
-  <A>(a: P<A>, min = 0): P<A[]> =>
+export const star =
+  <A>(a: Parser<A>, min = 0): Parser<A[]> =>
     input => {
-      const r: A[] = []
+      const rs: A[] = []
       let input_ = input
-      const eat = (_: R<A>) => ((input_ = _[0]), r.push(_[1]), true)
       while (true) {
-        try {
-          eat(a(input_))
-        } catch (err) {
-          if (err instanceof Invalid) {
-            break
-          }
-          throw err
+        const a_ = a(input_)
+        if (failed(a_)) {
+          break
         }
+        rs.push(a_[1])
+        input_ = a_[0]
       }
-      if (r.length < min) {
-        throw new Invalid(input, `Expected to match minimum length ${min}, matched only ${r.length}.`)
+      if (rs.length < min) {
+        return fail(input, `Expected to match minimum length ${min}, matched only ${rs.length}.`)
       }
-      return [ input_, r ]
+      return ok(input_, rs)
     }
 
 export default star

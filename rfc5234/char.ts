@@ -5,6 +5,6 @@ import charRange from '../char-range.js'
  * @returns parser for any 7-bit US-ASCII character, excluding NUL.
  */
 const char =
-  charRange('\x01', '\x7f')
+  charRange('\x01\x7f')
 
 export default char

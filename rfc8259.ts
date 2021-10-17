@@ -1,6 +1,5 @@
 import charRange from './char-range.js'
 import either from './either.js'
-import sorrounded from './sorrounded.js'
 import exhaustive from './exhaustive.js'
 import join from './join.js'
 import literal from './literal.js'
@@ -9,9 +8,10 @@ import maybe from './maybe.js'
 import right from './right.js'
 import separated0 from './separated0.js'
 import sequence from './sequence.js'
+import sorrounded from './sorrounded.js'
 import star from './star.js'
 import times from './times.js'
-import type P from './parser.js'
+import type { Parser } from './prelude.js'
 import union from './union.js'
 import utf8 from './utf8.js'
 import whileChar from './while-char.js'
@@ -39,23 +39,29 @@ export interface JsonObject {
 }
 
 export const ws =
-  whileChar('\x20\x09\x0a\x0d')
+  whileChar(' \t\r\n\v\x0c\xa0\ufeff')
+
+export const ws1 =
+  whileChar(' \t\r\n\v\x0c\xa0\ufeff', 1)
 
 export const trim =
-  <A>(a: P<A>): P<A> =>
-    map(sequence(ws, a, ws), _ => _[1])
+  <A>(a: Parser<A>): Parser<A> =>
+    map(sequence(ws, a, ws), _ => {
+      // console.log('trim', _)
+      return _[1]
+    })
 
-const false_: P<JsonFalse> =
+const false_: Parser<JsonFalse> =
   map(literal('false'), () => ({ type: 'false' as const }))
 
 export { false_ as false }
 
-const null_: P<JsonNull> =
+const null_: Parser<JsonNull> =
   map(literal('null'), () => ({ type: 'null' as const }))
 
 export { null_ as null }
 
-const true_: P<JsonTrue> =
+const true_: Parser<JsonTrue> =
   map(literal('true'), () => ({ type: 'true' as const }))
 
 export { true_ as true }
@@ -94,10 +100,10 @@ export const escape =
   literal('\\')
 
 export const digit =
-  charRange('0', '9')
+  charRange('09')
 
 export const digit19 =
-  charRange('1', '9')
+  charRange('19')
 
 export const e =
   either(literal('e'), literal('E'))
@@ -114,15 +120,11 @@ export const int =
 export const frac =
   join(sequence(decimalPoint, join(star(digit, 1))))
 
-export const number: P<JsonNumber> =
+export const number: Parser<JsonNumber> =
   map(join(sequence(maybe(minus), int, maybe(frac), maybe(exp))), _ => ({ type: 'number' as const, value: _ }))
 
 export const unescaped =
-  union(
-    charRange('\x20', '\x21'),
-    charRange('\x23', '\x5b'),
-    charRange('\x5d', '\uffff') // TODO: 10FFFF
-  )
+  charRange('\x20\x21\x23\x5b\x5d\uffff') // TODO: 10FFFF
 
 export const hexdig =
   either(digit, utf8('ABCDEF')) // TODO: a-f?
@@ -136,20 +138,22 @@ export const escaped =
 export const char =
   either(unescaped, escaped)
 
-export const string_: P<JsonString> =
+export const string_: Parser<JsonString> =
   map(join(sorrounded(quotationMark, quotationMark, star(char))), _ => ({ type: 'string' as const, value: _ }))
 
-export const value: P<JsonNull | JsonFalse | JsonTrue | JsonNumber | JsonString | JsonArray | JsonObject> =
+export { string_ as string }
+
+export const value: Parser<JsonNull | JsonFalse | JsonTrue | JsonNumber | JsonString | JsonArray | JsonObject> =
   input =>
-    union(false_, null_, true_, object, array, number, string_)(input)
+    union(false_, null_, true_, object_, array, number, string_)(input)
 
 export const member =
   map(sequence(string_, nameSeparator, value), _ => [_[0].value, _[2]] as [string, Json])
 
-export const array: P<JsonArray> =
+export const array: Parser<JsonArray> =
   map(sorrounded(beginArray, endArray, separated0(valueSeparator, value)), _ => ({ type: 'array', elements: _ }))
 
-export const object: P<JsonObject> =
+export const object_: Parser<JsonObject> =
   map(sorrounded(beginObject, endObject, separated0(valueSeparator, member)), _ => ({ type: 'object', members: _ }))
 
 export const json =
