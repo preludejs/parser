@@ -12,8 +12,9 @@ import * as P from '@prelude/parser'
 
 # Rules
 
-* [rfc5234](https://datatracker.ietf.org/doc/html/rfc5234) – Augmented BNF for Syntax Specifications: ABNF
-* [rfc8259](https://datatracker.ietf.org/doc/html/rfc8259) – The JavaScript Object Notation (JSON) Data Interchange Format
+* [rfc4180](https://datatracker.ietf.org/doc/html/rfc4180) - CSV
+* [rfc5234](https://datatracker.ietf.org/doc/html/rfc5234) – ABNF
+* [rfc8259](https://datatracker.ietf.org/doc/html/rfc8259) – JSON
 
 ## Top level rules
 
