@@ -44,7 +44,5 @@ export const peek =
 
 /** @returns `true` if input starts with provided `prefix`, `false` otherwise. */
 export const startsWith =
-  (input: Input, prefix: string): boolean => {
-    // console.log('startsWith', { input, prefix, result: input[0].startsWith(prefix, input[1]) })
-    return input[0].startsWith(prefix, input[1])
-  }
+  (input: Input, prefix: string): boolean =>
+    input[0].startsWith(prefix, input[1])
