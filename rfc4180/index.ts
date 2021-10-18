@@ -27,3 +27,5 @@ export {
   file,
   parse
 }
+
+export default parse
