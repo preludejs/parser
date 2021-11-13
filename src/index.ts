@@ -5,6 +5,7 @@ import * as Rfc8259 from './rfc8259.js'
 import charRange from './char-range.js'
 import either from './either.js'
 import exhaustive from './exhaustive.js'
+import exhaustiveEmpty from './exhaustive-empty.js'
 import join from './join.js'
 import literal from './literal.js'
 import map from './map.js'
@@ -33,6 +34,7 @@ export {
   Csv,
   either,
   exhaustive,
+  exhaustiveEmpty,
   join,
   Json,
   literal,

@@ -46,3 +46,8 @@ export const peek =
 export const startsWith =
   (input: Input, prefix: string): boolean =>
     input[0].startsWith(prefix, input[1])
+
+/** @returns rest of input. */
+export const rest =
+  (input: Input): string =>
+    input[0].slice(input[1])
