@@ -3,15 +3,14 @@
   "version": "2.0.0",
   "description": "Parser combinators module.",
   "type": "module",
-  "main": "index.js",
+  "main": "./cjs/index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "tsc && NODE_OPTIONS=--experimental-vm-modules jest",
-    "update": "npx npm-check --update --save-exact",
-    "preversion": "npm test",
-    "postversion": "git push && git push --tags && npm publish"
+    "test": "make test",
+    "preversion": "make test",
+    "postversion": "make postversion"
   },
   "keywords": [
     "prelude",
@@ -29,8 +28,22 @@
   "devDependencies": {
     "@tsconfig/node16": "1.0.2",
     "@types/jest": "27.0.2",
-    "eslint": "7.32.0",
-    "jest": "27.3.0",
+    "eslint": "8.2.0",
+    "jest": "27.3.1",
     "typescript": "4.4.4"
+  },
+  "module": "./mjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./mjs/index.js",
+      "require": "./cjs/index.js"
+    },
+    "./*.js": {
+      "import": "./mjs/*.js",
+      "require": "./cjs/*.js"
+    },
+    "./*": {
+      "require": "./cjs/*.js"
+    }
   }
 }
