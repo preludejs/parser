@@ -1,4 +1,4 @@
-import * as P from '../cjs/index.js'
+import * as P from './index.js'
 
 test('simple', () => {
   expect(P.exhaustive(P.literal('a'))('a')).toEqual('a')

@@ -1,4 +1,4 @@
-import parse from '../cjs/rfc8259/parse.js'
+import parse from './rfc8259/parse.js'
 
 test('basic', () => {
   expect(parse(`

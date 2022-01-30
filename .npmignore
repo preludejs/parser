@@ -1,5 +1,5 @@
 .github
 .vscode
+*.test.*
 jest.config.json
-test
 wip
