@@ -1,6 +1,6 @@
-export type Input = [ input: string, offset: number ]
-export type Ok<T> = [ input: Input, value: T, reason: undefined ]
-export type Fail = [ input: Input, value: undefined, reason: string ]
+export type Input = readonly [ input: string, offset: number ]
+export type Ok<T> = readonly [ input: Input, value: T, reason: undefined ]
+export type Fail = readonly [ input: Input, value: undefined, reason: string ]
 export type Result<T> = Ok<T> | Fail
 export type Parser<T> = (input: Input) => Result<T>
 export type ResultOfParser<T> = T extends Parser<infer R> ? R : never
