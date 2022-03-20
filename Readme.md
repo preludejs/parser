@@ -62,6 +62,124 @@ import * as P from '@prelude/parser'
 * true
 * ws
 
+# Parser module
+
+* `dquote: Parser<string>`
+
+* `dquote2: Parser<string>`
+
+* `lf: Parser<string>`
+
+* `cr: Parser<string>`
+
+* `nl: Parser<string>`
+
+* `textdata: Parser<string>`
+
+* `comma: Parser<string>`
+
+* `nonEscaped: Parser<string>`
+
+* `escaped: Parser<string>`
+
+* `field: Parser<string>`
+
+* `record: Parser<string[]>`
+
+* `file: Parser<string[][]>`
+
+* `parse: (inputString: string) => string[][]`
+
+* `false: Parser<boolean>`
+
+* `null: Parser<any>`
+
+* `parse: (inputString: string) => unknown`
+
+* `true: Parser<boolean>`
+
+* `valueSeparator: Parser<string>`
+
+* `charRange: (ranges: string) => Parser<string>`
+
+  Returns parser matching provided character `ranges`.
+
+  Example `charRange('09azAZ')` – equivalent to /[0-9a-zA-Z]/ regexp.
+
+* `Csv`
+
+* `either: <A, B>(a: Parser<A>, b: Parser<B>) => Parser<A | B>`
+
+* `exhaustive: <A>(a: Parser<A>) => (inputString: string) => A`
+
+  Returns top level string to result parser asserting all input has been parsed.
+
+  Throws If parser fails or input is not fully exhausted.
+
+* `exhaustiveEmpty: (input: any) => Fail | Ok<any>`
+
+  Returns parser that matches empty string exhaustively.
+
+* `join: (a: Parser<string[]>, glue?: string) => Parser<string>`
+
+  Joins `string` (or `undefined`) result array into single `string` result.
+
+* `Json`
+
+* `literal: (expected: string) => Parser<string>`
+
+* `map: <A, B>(a: Parser<A>, f: (_: A) => B) => Parser<B>`
+
+* `maybe: <A>(a: Parser<A>) => Parser<A>`
+
+* `pair: <A, B>(a: Parser<A>, b: Parser<B>) => Parser<[A, B]>`
+
+* `Rfc4180`
+
+* `Rfc8259`
+
+* `right: <B>(a: Parser<unknown>, b: Parser<B>) => Parser<B>`
+
+  Returns `b` after successful `a` and `b` sequence match.
+
+* `separated0: <A>(s: Parser<unknown>, a: Parser<A>) => Parser<A[]>`
+
+* `separated1: <A>(s: Parser<unknown>, a: Parser<A>) => Parser<A[]>`
+
+* `separated2: <A>(s: Parser<unknown>, a: Parser<A>) => Parser<A[]>`
+
+* `sequence: <T extends Parser<unknown>[]>(...as: T) => Parser<{ [K in keyof T]: ResultOfParser<T[K]>; }>`
+
+* `sorrounded: <A>(lhs: Parser<unknown>, rhs: Parser<unknown>, a: Parser<A>) => Parser<A>`
+
+  Returns `a` parser sorrounded by `lhs` and `rhs`.
+
+* `sorrounded1: <A>(s: Parser<unknown>, a: Parser<A>) => Parser<A>`
+
+  Returns `a` parser sorrounded by `s` at the beginning and at the end.
+
+* `star: <A>(a: Parser<A>, min?: number) => Parser<A[]>`
+
+  Returns parser matching at least `min` (default 0) times `a` parser.
+
+* `times: <A>(n: number, a: Parser<A>) => Parser<A[]>`
+
+* `trim: <A>(a: Parser<A>) => Parser<A>`
+
+* `union: <T extends Parser<unknown>[]>(...as: T) => T[number]`
+
+* `utf8: (chars: string) => Parser<string>`
+
+  Returns parser matching one of provided chars.
+
+* `whileChar: (chars: string, min?: number) => Parser<string>`
+
+  Matches any char listed in `chars` at least `min` (default `0`) times.
+
+* `ws0: Parser<string>`
+
+* `ws1: Parser<string>`
+
 # License
 
 ```
