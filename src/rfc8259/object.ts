@@ -1,6 +1,6 @@
 import literal from '../literal.js'
 import sorrounded from '../sorrounded.js'
-import string_ from './string'
+import string_ from './string.js'
 import trim from '../trim.js'
 import type { Parser } from '../prelude.js'
 import map from '../map.js'
