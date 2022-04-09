@@ -23,3 +23,14 @@ test('reentry', () => {
     }
   })
 })
+
+test('longest', () => {
+  expect($.exhaustive($.star($.union(
+    $.literal('a'),
+    $.literal('aa')
+  )))('aaaaa')).toEqual([
+    'aa',
+    'aa',
+    'a'
+  ])
+})
