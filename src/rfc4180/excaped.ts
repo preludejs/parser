@@ -8,9 +8,9 @@ import map from '../map.js'
 import sorrounded1 from '../sorrounded1.js'
 import star from '../star.js'
 import textdata from './textdata.js'
-import union from '../union.js'
+import first from '../first.js'
 
 const escaped =
-  sorrounded1(dquote, join(star(union(textdata, comma, cr, lf, map(dquote2, () => '"')))))
+  sorrounded1(dquote, join(star(first(textdata, comma, cr, lf, map(dquote2, () => '"')))))
 
 export default escaped

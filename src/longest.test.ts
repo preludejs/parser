@@ -9,7 +9,7 @@ test('reentry', () => {
       $.map($.sequence(p, $.literal('='), p), _ => ({ type: 'Eq' as const, lhs: _[0], rhs: _[2] }))(input)
   const p: $.Parser<Node> =
     input =>
-      $.union(
+      $.first(
         p_,
         $.map($.charRange('09'), parseFloat)
       )(input)
@@ -25,7 +25,7 @@ test('reentry', () => {
 })
 
 test('longest', () => {
-  expect($.exhaustive($.star($.union(
+  expect($.exhaustive($.star($.longest(
     $.literal('a'),
     $.literal('aa')
   )))('aaaaa')).toEqual([

@@ -6,11 +6,19 @@ import object_ from './object.js'
 import string_ from './string.js'
 import trim from '../trim.js'
 import true_ from './true.js'
-import union from '../union.js'
+import first from '../first.js'
 
 export const value =
   input =>
-    union(false_, null_, true_, object_(value), array(value), number_, string_)(input)
+    first(
+      string_,
+      number_,
+      null_,
+      true_,
+      false_,
+      object_(value),
+      array(value)
+    )(input)
 
 export const json =
   trim(value)

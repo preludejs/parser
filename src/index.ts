@@ -6,8 +6,12 @@ import charRange from './char-range.js'
 import either from './either.js'
 import exhaustive from './exhaustive.js'
 import exhaustiveEmpty from './exhaustive-empty.js'
+import first from './first.js'
+import firstLiteral from './first-literal.js'
 import join from './join.js'
 import literal from './literal.js'
+import longest from './longest.js'
+import longestLiteral from './longest-literal.js'
 import map from './map.js'
 import maybe from './maybe.js'
 import pair from './pair.js'
@@ -21,7 +25,6 @@ import sorrounded1 from './sorrounded1.js'
 import star from './star.js'
 import times from './times.js'
 import trim from './trim.js'
-import union from './union.js'
 import utf8 from './utf8.js'
 import whileChar from './while-char.js'
 import ws0 from './ws0.js'
@@ -35,9 +38,13 @@ export {
   either,
   exhaustive,
   exhaustiveEmpty,
+  first,
+  firstLiteral,
   join,
   Json,
   literal,
+  longest,
+  longestLiteral,
   map,
   maybe,
   pair,
@@ -53,7 +60,6 @@ export {
   star,
   times,
   trim,
-  union,
   utf8,
   whileChar,
   ws0,
