@@ -3,7 +3,12 @@ export type Ok<T> = readonly [ input: Input, value: T, reason: undefined ]
 export type Fail = readonly [ input: Input, value: undefined, reason: string ]
 export type Result<T> = Ok<T> | Fail
 export type Parser<T> = (input: Input) => Result<T>
+
+/** @deprecated @see {@link Parsed} */
 export type ResultOfParser<T> = T extends Parser<infer R> ? R : never
+
+export type t<T> = Parser<T>
+export type Parsed<T> = ResultOfParser<T>
 
 /** @returns `true` if string `input` includes string `value`, `false` otherwise. */
 export const includes =
