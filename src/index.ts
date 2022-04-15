@@ -14,6 +14,7 @@ import longest from './longest.js'
 import longestLiteral from './longest-literal.js'
 import map from './map.js'
 import maybe from './maybe.js'
+import memoize from './memoize.js'
 import pair from './pair.js'
 import right from './right.js'
 import separated0 from './separated0.js'
@@ -47,6 +48,7 @@ export {
   longestLiteral,
   map,
   maybe,
+  memoize,
   pair,
   Rfc4180,
   Rfc8259,
