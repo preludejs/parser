@@ -3,3 +3,6 @@ node_modules
 wip
 mjs
 cjs
+.vscode/configurationCache.log
+.vscode/dryrun.log
+.vscode/targets.log

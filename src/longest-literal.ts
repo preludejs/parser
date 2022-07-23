@@ -1,20 +1,16 @@
-import { startsWith, eat, fail, Parser, Ok } from './prelude.js'
+import { eat, fail, Parser, Ok } from './prelude.js'
+import * as RadixTrie from '@prelude/radix-trie'
 
 /** Succeeds on longest matching literal. */
 const longestLiteral =
   <T extends string>(...literals: T[]): Parser<T> => {
-
-    // TODO: If ... makes a copy, no need to slice.
-    const sortedLiterals = literals
-      .slice()
-      .sort((a, b) => b.length - a.length)
+    const n = literals.length
+    const trie = RadixTrie.of(literals)
     return input => {
-      for (const literal of sortedLiterals) {
-        if (startsWith(input, literal)) {
-          return eat(input, literal.length) as Ok<T>
-        }
-      }
-      return fail(input, `Expected one of literals ${literals.join(', ')}.`)
+      const length = RadixTrie.longestPrefixLength(trie, input[0], input[1])
+      return length > 0 ?
+        eat(input, length) as Ok<T>:
+        fail(input, `Expected one of ${n} literals.`)
     }
   }
 

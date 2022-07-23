@@ -45,5 +45,8 @@
     "./*": {
       "require": "./cjs/*.js"
     }
+  },
+  "dependencies": {
+    "@prelude/radix-trie": "0.0.2"
   }
 }
