@@ -9,12 +9,12 @@ import exhaustiveEmpty from './exhaustive-empty.js'
 import first from './first.js'
 import firstLiteral from './first-literal.js'
 import join from './join.js'
+import lazy from './lazy.js'
 import literal from './literal.js'
 import longest from './longest.js'
 import longestLiteral from './longest-literal.js'
 import map from './map.js'
 import maybe from './maybe.js'
-import memoize from './memoize.js'
 import pair from './pair.js'
 import right from './right.js'
 import separated0 from './separated0.js'
@@ -43,12 +43,12 @@ export {
   firstLiteral,
   join,
   Json,
+  lazy,
   literal,
   longest,
   longestLiteral,
   map,
   maybe,
-  memoize,
   pair,
   Rfc4180,
   Rfc8259,
