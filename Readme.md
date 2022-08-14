@@ -148,7 +148,7 @@ import * as P from '@prelude/parser'
 
 * `separated2: <A>(s: Parser<unknown>, a: Parser<A>) => Parser<A[]>`
 
-* `sequence: <T extends Parser<unknown>[]>(...as: T) => Parser<{ [K in keyof T]: ResultOfParser<T[K]>; }>`
+* `sequence: <T extends Parser<unknown>[]>(...as: T) => Parser<{ [K in keyof T]: Parsed<T[K]>; }>`
 
 * `sorrounded: <A>(lhs: Parser<unknown>, rhs: Parser<unknown>, a: Parser<A>) => Parser<A>`
 

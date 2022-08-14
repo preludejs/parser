@@ -1,9 +1,9 @@
-import { fail, failed, type Parser, type Input, type Ok } from './prelude.js'
+import { fail, failed, type Parser, type Parsed, type Input, type Ok } from './prelude.js'
 
 const reentry = new WeakMap<Input, Set<Parser<unknown>>>()
 
 const longest =
-  <T extends Parser<unknown>[]>(...as: T): T[number] =>
+  <T extends Parser<unknown>[]>(...as: T): Parser<Parsed<T[number]>> =>
     input => {
       const set = reentry.get(input) ?? reentry.set(input, new Set).get(input)!
       let r: undefined | Ok<unknown> = undefined
@@ -21,7 +21,7 @@ const longest =
         }
       }
       return r !== undefined ?
-        r :
+        r as Ok<Parsed<T[number]>> :
         fail(input, `None of ${as.length} alternatives matched at ${input[1]}.`)
     }
 

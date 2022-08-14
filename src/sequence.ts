@@ -1,7 +1,7 @@
-import { failed, fail, ok, Ok, ResultOfParser, Parser } from './prelude.js'
+import { failed, fail, ok, type Ok, type Parsed, type Parser } from './prelude.js'
 
 const sequence =
-  <T extends Parser<unknown>[]>(...as: T): Parser<{ [K in keyof T]: ResultOfParser<T[K]> }> =>
+  <T extends Parser<unknown>[]>(...as: T): Parser<{ [K in keyof T]: Parsed<T[K]> }> =>
     input => {
       const rs: unknown[] = []
       let input_ = input
@@ -13,7 +13,7 @@ const sequence =
         rs.push(a_[1])
         input_ = a_[0]
       }
-      return ok(input_, rs) as Ok<{ [K in keyof T]: ResultOfParser<T[K]> }>
+      return ok(input_, rs) as Ok<{ [K in keyof T]: Parsed<T[K]> }>
     }
 
 export default sequence
