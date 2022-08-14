@@ -20,13 +20,13 @@ export const digit19 =
 export const e =
   utf8('eE')
 
-const int =
+export const int =
   either(
     literal('0'),
     join(sequence(digit19, join(star(digit))))
   )
 
-const minus =
+export const minus =
   literal('-')
 
 export const plus =
@@ -38,7 +38,9 @@ export const exp =
 export const frac =
   join(sequence(decimalPoint, join(star(digit, 1))))
 
-export const number_ =
+const number_ =
   map(join(sequence(maybe(minus), int, maybe(frac), maybe(exp))), parseFloat)
+
+export { number_ as number }
 
 export default number_
