@@ -82,10 +82,19 @@ export const peek =
 
 /** @returns `true` if input starts with provided `prefix`, `false` otherwise. */
 export const startsWith =
-  ({ input, offset }: Input, prefix: string): boolean =>
-    input.startsWith(prefix, offset)
+  ({ input, offset }: Input, prefix: string, position = 0): boolean =>
+    input.startsWith(prefix, offset + position)
+
+/** @returns -1 if not found, otherwise offset of value. */
+export const offsetOf =
+  ({ input, offset }: Input, value: string, position = 0): number =>
+    input.indexOf(value, offset + position)
 
 /** @returns rest of input. */
 export const rest =
   (input: Input): string =>
     input.input.slice(input.offset)
+
+export const slice =
+  (input: Input, start: number, end: number): string =>
+    input.input.slice(start + input.offset, end + input.offset)

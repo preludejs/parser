@@ -2,6 +2,7 @@ import * as Csv from './csv.js'
 import * as Json from './json.js'
 import * as Rfc4180 from './rfc4180.js'
 import * as Rfc8259 from './rfc8259.js'
+import betweenLiterals from './between-literals.js'
 import charRange from './char-range.js'
 import either from './either.js'
 import exhaustive from './exhaustive.js'
@@ -34,6 +35,7 @@ import ws1 from './ws1.js'
 export * from './prelude.js'
 
 export {
+  betweenLiterals,
   charRange,
   Csv,
   either,
