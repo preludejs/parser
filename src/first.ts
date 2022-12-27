@@ -18,7 +18,7 @@ const first =
           return a_ as Ok<T[number]>
         }
       }
-      return fail(input, `None of ${as.length} alternatives matched at ${input[1]}.`)
+      return fail(input, `None of ${as.length} alternatives matched at ${input.offset}.`)
     }
 
 export default first

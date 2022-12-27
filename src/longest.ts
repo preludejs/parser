@@ -15,14 +15,14 @@ const longest =
         const a_ = a(input)
         set.delete(a)
         if (!failed(a_)) {
-          if (r === undefined || r[0][1] < a_[0][1]) {
+          if (r === undefined || r.input.offset < a_.input.offset) {
             r = a_
           }
         }
       }
       return r !== undefined ?
         r as Ok<Parsed<T[number]>> :
-        fail(input, `None of ${as.length} alternatives matched at ${input[1]}.`)
+        fail(input, `None of ${as.length} alternatives matched at ${input.offset}.`)
     }
 
 export default longest

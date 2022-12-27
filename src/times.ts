@@ -10,8 +10,8 @@ const times =
         if (failed(a_)) {
           return fail(input, `Expected ${n} times, got ${i + 1} times only.`)
         }
-        rs.push(a_[1])
-        input_ = a_[0]
+        rs.push(a_.value)
+        input_ = a_.input
       }
       return ok(input_, rs)
     }

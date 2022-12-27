@@ -8,10 +8,10 @@ const sequence =
       for (const a of as) {
         const a_ = a(input_)
         if (failed(a_)) {
-          return fail(input, `Failed sequence. ` + a_[2])
+          return fail(input, `Failed sequence. ${a_.reason}`)
         }
-        rs.push(a_[1])
-        input_ = a_[0]
+        rs.push(a_.value)
+        input_ = a_.input
       }
       return ok(input_, rs) as Ok<{ [K in keyof T]: Parsed<T[K]> }>
     }

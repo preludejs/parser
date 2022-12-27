@@ -7,11 +7,11 @@ const pair =
       if (failed(a_)) {
         return a_
       }
-      const b_ = b(a_[0])
+      const b_ = b(a_.input)
       if (failed(b_)) {
-        return fail(input, b_[2])
+        return fail(input, b_.reason)
       }
-      return ok(b_[0], [ a_[1], b_[1] ])
+      return ok(b_.input, [ a_.value, b_.value ])
     }
 
 export default pair

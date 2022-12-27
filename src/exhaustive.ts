@@ -6,15 +6,15 @@ import { end, failed, Parser } from './prelude.js'
  */
 const exhaustive =
   <A>(a: Parser<A>) =>
-    (inputString: string): A => {
-      const a_ = a([ inputString, 0 ])
+    (input: string): A => {
+      const a_ = a({ input, offset: 0 })
       if (failed(a_)) {
-        throw new Error(a_[2])
+        throw new Error(a_.reason)
       }
-      if (!end(a_[0])) {
-        throw new Error(`Expected exhaustive result, unparsed ${a_[0][0].length - a_[0][1]}.`)
+      if (!end(a_.input)) {
+        throw new Error(`Expected exhaustive result, unparsed ${a_.input.input.length - a_.input.offset}.`)
       }
-      return a_[1]
+      return a_.value
     }
 
 export default exhaustive

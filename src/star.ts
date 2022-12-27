@@ -11,8 +11,8 @@ export const star =
         if (failed(a_)) {
           break
         }
-        rs.push(a_[1])
-        input_ = a_[0]
+        rs.push(a_.value)
+        input_ = a_.input
       }
       if (rs.length < min) {
         return fail(input, `Expected to match minimum length ${min}, matched only ${rs.length}.`)

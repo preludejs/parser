@@ -6,7 +6,7 @@ const map =
       const a_ = a(input)
       return failed(a_) ?
         a_ :
-        ok(a_[0], f(a_[1]))
+        ok(a_.input, f(a_.value))
     }
 
 export default map
