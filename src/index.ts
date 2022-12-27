@@ -65,5 +65,9 @@ export {
   utf8,
   whileChar,
   ws0,
-  ws1
+  ws1,
+
+  // Aliases
+  sequence as seq,
+  literal as lit,
 }
