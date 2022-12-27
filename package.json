@@ -47,6 +47,6 @@
     }
   },
   "dependencies": {
-    "@prelude/radix-trie": "0.0.2"
+    "@prelude/radix-trie": "0.1.1"
   }
 }
