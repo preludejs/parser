@@ -1,6 +1,10 @@
 import * as Result from './result.js'
 import type * as Parser from './parser.js'
 
+/**
+ * Matches longest successful result.
+ * @see {@link longestReentrant} for variant that can match recursive parsers.
+ */
 export function longest<Parsers extends Parser.t<unknown>[]>(
   ...parsers: Parsers
 ): Parser.t<Parser.Parsed<Parsers[number]>> {
@@ -19,5 +23,7 @@ export function longest<Parsers extends Parser.t<unknown>[]>(
       Result.fail(reader, `None of ${parsers.length} alternatives matched at ${reader.offset}.`)
   }
 }
+
+export { longest as or }
 
 export default longest
