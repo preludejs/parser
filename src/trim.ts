@@ -1,10 +1,14 @@
 import map from './map.js'
 import sequence from './sequence.js'
-import type { Parser } from './prelude.js'
+import type * as Parser from './parser.js'
 import ws0 from './ws0.js'
 
-const trim =
-  <A>(a: Parser<A>): Parser<A> =>
-    map(sequence(ws0, a, ws0), _ => _[1])
-
-export default trim
+/** @returns parser with left (default {@link ws0}) and right (default `left`) trim parsers. */
+export default function trim(
+  left: Parser.t<unknown> = ws0,
+  right: Parser.t<unknown> = left
+) {
+  return function <A>(a: Parser.t<A>): Parser.t<A> {
+    return map(sequence(left, a, right), _ => _[1])
+  }
+}

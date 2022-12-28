@@ -1,12 +1,11 @@
-import { ok, failed, Parser } from './prelude.js'
+import type * as Parser from './parser.js'
+import * as Result from './result.js'
 
-const maybe =
-  <A>(a: Parser<A>): Parser<undefined | A> =>
-    input => {
-      const a_ = a(input)
-      return failed(a_) ?
-        ok<undefined>(input, undefined, 0) :
-        a_
-    }
-
-export default maybe
+export default function maybe<A>(parser: Parser.t<A>): Parser.t<undefined | A> {
+  return function (reader) {
+    const result = parser(reader)
+    return Result.failed(result) ?
+      Result.ok<undefined>(reader, undefined) :
+      result
+  }
+}

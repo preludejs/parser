@@ -7,7 +7,7 @@ test('reentry', () => {
   const p_ =
     input =>
       $.map($.sequence(p, $.literal('='), p), _ => ({ type: 'Eq' as const, lhs: _[0], rhs: _[2] }))(input)
-  const p: $.Parser<Node> =
+  const p: $.Parser.t<Node> =
     input =>
       $.first(
         p_,

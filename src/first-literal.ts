@@ -1,16 +1,16 @@
 
-import { startsWith, eat, fail, Parser, Ok } from './prelude.js'
+import type * as Parser from './parser.js'
+import * as Reader from './reader.js'
+import * as Result from './result.js'
 
-/** Succeeds on first matched literal. */
-const firstLiteral =
-  <T extends string>(...literals: T[]): Parser<T> =>
-    input => {
-      for (const literal of literals) {
-        if (startsWith(input, literal)) {
-          return eat(input, literal.length) as Ok<T>
-        }
+/** @returns parser succeeding on the first matched literal. */
+export default function firstLiteral<T extends string>(...literals: T[]): Parser.t<T> {
+  return function (input) {
+    for (const literal of literals) {
+      if (Reader.startsWith(input, literal)) {
+        return Result.eat(input, literal.length) as Result.Ok<T>
       }
-      return fail(input, `Expected one of literals ${literals.join(', ')}.`)
     }
-
-export default firstLiteral
+    return Result.fail(input, `Expected one of literals ${literals.join(', ')}.`)
+  }
+}

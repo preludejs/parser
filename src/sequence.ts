@@ -1,19 +1,20 @@
-import { failed, fail, ok, type Ok, type Parsed, type Parser } from './prelude.js'
+import * as Result from './result.js'
+import type * as Parser from './parser.js'
 
-const sequence =
-  <T extends Parser<unknown>[]>(...as: T): Parser<{ [K in keyof T]: Parsed<T[K]> }> =>
-    input => {
-      const rs: unknown[] = []
-      let input_ = input
-      for (const a of as) {
-        const a_ = a(input_)
-        if (failed(a_)) {
-          return fail(input, `Failed sequence. ${a_.reason}`)
-        }
-        rs.push(a_.value)
-        input_ = a_.input
+export default function sequence<T extends Parser.t<unknown>[]>(
+  ...parsers: T
+): Parser.t<{ [K in keyof T]: Parser.Parsed<T[K]> }> {
+  return function (reader) {
+    const rs: unknown[] = []
+    let reader_ = reader
+    for (const parser of parsers) {
+      const result = parser(reader_)
+      if (Result.failed(result)) {
+        return Result.fail(reader, `Failed sequence. ${result.reason}`)
       }
-      return ok(input_, rs) as Ok<{ [K in keyof T]: Parsed<T[K]> }>
+      rs.push(result.value)
+      reader_ = result.input
     }
-
-export default sequence
+    return Result.ok(reader_, rs) as Result.Ok<{ [K in keyof T]: Parser.Parsed<T[K]> }>
+  }
+}

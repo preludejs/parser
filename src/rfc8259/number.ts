@@ -6,7 +6,7 @@ import map from '../map.js'
 import maybe from '../maybe.js'
 import sequence from '../sequence.js'
 import star from '../star.js'
-import utf8 from '../utf8.js'
+import chars from '../chars.js'
 
 export const decimalPoint =
   literal('.')
@@ -18,7 +18,7 @@ export const digit19 =
   charRange('19')
 
 export const e =
-  utf8('eE')
+  chars('eE')
 
 export const int =
   either(

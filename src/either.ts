@@ -1,12 +1,12 @@
-import { failed, Parser } from './prelude.js'
+import * as Result from './result.js'
+import type * as Parser from './parser.js'
 
-const either =
-  <A, B>(a: Parser<A>, b: Parser<B>): Parser<A | B> =>
-    input => {
-      const a_ = a(input)
-      return failed(a_) ?
-        b(input) :
-        a_
-    }
-
-export default either
+/** @returns parser matching either `a` or `b`. */
+export default function either<A, B>(a: Parser.t<A>, b: Parser.t<B>): Parser.t<A | B> {
+  return function (reader) {
+    const result = a(reader)
+    return Result.failed(result) ?
+      b(reader) :
+      result
+  }
+}

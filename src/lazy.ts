@@ -1,8 +1,8 @@
-import type { Parser } from './prelude.js'
+import type * as Parser from './parser.js'
 
 /** Memoizes parser, can be used for mutually recursive parsers. */
 const lazy =
-  <P extends Parser<unknown>>(f: () => P): P => {
+  <P extends Parser.t<unknown>>(f: () => P): P => {
     let parser: P
     return (
       input => {

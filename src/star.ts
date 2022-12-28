@@ -1,23 +1,22 @@
-import { ok, fail, failed, Parser } from './prelude.js'
+import type * as Parser from './parser.js'
+import * as Result from './result.js'
 
 /** @returns parser matching at least `min` (default 0) times `a` parser. */
-export const star =
-  <A>(a: Parser<A>, min = 0): Parser<A[]> =>
-    input => {
-      const rs: A[] = []
-      let input_ = input
-      while (true) {
-        const a_ = a(input_)
-        if (failed(a_)) {
-          break
-        }
-        rs.push(a_.value)
-        input_ = a_.input
+export default function star<A>(parser: Parser.t<A>, min = 0): Parser.t<A[]> {
+  return function (reader) {
+    const values: A[] = []
+    let reader_ = reader
+    while (true) {
+      const result = parser(reader_)
+      if (Result.failed(result)) {
+        break
       }
-      if (rs.length < min) {
-        return fail(input, `Expected to match minimum length ${min}, matched only ${rs.length}.`)
-      }
-      return ok(input_, rs)
+      values.push(result.value)
+      reader_ = result.input
     }
-
-export default star
+    if (values.length < min) {
+      return Result.fail(reader, `Expected to match minimum length ${min}, matched only ${values.length}.`)
+    }
+    return Result.ok(reader_, values)
+  }
+}

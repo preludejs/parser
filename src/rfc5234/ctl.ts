@@ -1,4 +1,4 @@
-import utf8 from '../utf8.js'
+import chars from '../chars.js'
 import charRange from '../char-range.js'
 import either from '../either.js'
 
@@ -7,6 +7,6 @@ import either from '../either.js'
  * @returns parser for controls.
  */
 const ctl =
-  either(charRange('\x00\x1f'), utf8('\x7f'))
+  either(charRange('\x00\x1f'), chars('\x7f'))
 
 export default ctl

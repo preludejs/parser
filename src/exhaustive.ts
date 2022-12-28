@@ -1,20 +1,20 @@
-import { end, failed, Parser } from './prelude.js'
+import * as Reader from './reader.js'
+import * as Result from './result.js'
+import type * as Parser from './parser.js'
 
 /**
  * @returns top level string to result parser asserting all input has been parsed.
  * @throws If parser fails or input is not fully exhausted.
  */
-const exhaustive =
-  <A>(a: Parser<A>) =>
-    (input: string): A => {
-      const a_ = a({ input, offset: 0 })
-      if (failed(a_)) {
-        throw new Error(a_.reason)
-      }
-      if (!end(a_.input)) {
-        throw new Error(`Expected exhaustive result, unparsed ${a_.input.input.length - a_.input.offset}.`)
-      }
-      return a_.value
+export default function exhaustive<A>(a: Parser.t<A>) {
+  return function (input: string): A {
+    const a_ = a(Reader.of(input))
+    if (Result.failed(a_)) {
+      throw new Error(a_.reason)
     }
-
-export default exhaustive
+    if (!Reader.end(a_.input)) {
+      throw new Error(`Expected exhaustive result, unparsed ${a_.input.input.length - a_.input.offset}.`)
+    }
+    return a_.value
+  }
+}

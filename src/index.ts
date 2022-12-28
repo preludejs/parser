@@ -6,7 +6,7 @@ import betweenLiterals from './between-literals.js'
 import charRange from './char-range.js'
 import either from './either.js'
 import exhaustive from './exhaustive.js'
-import exhaustiveEmpty from './exhaustive-empty.js'
+import end from './end.js'
 import first from './first.js'
 import firstLiteral from './first-literal.js'
 import join from './join.js'
@@ -27,10 +27,19 @@ import sorrounded1 from './sorrounded1.js'
 import star from './star.js'
 import times from './times.js'
 import trim from './trim.js'
-import utf8 from './utf8.js'
-import whileChar from './while-char.js'
+import chars from './chars.js'
+import whileChars from './while-chars.js'
 import ws0 from './ws0.js'
 import ws1 from './ws1.js'
+import * as Parser from './parser.js'
+import * as Result from './result.js'
+import * as Reader from './reader.js'
+
+export {
+  Parser,
+  Result,
+  Reader
+}
 
 export * from './prelude.js'
 
@@ -40,7 +49,7 @@ export {
   Csv,
   either,
   exhaustive,
-  exhaustiveEmpty,
+  end as exhaustiveEmpty,
   first,
   firstLiteral,
   join,
@@ -64,8 +73,8 @@ export {
   star,
   times,
   trim,
-  utf8,
-  whileChar,
+  chars as utf8,
+  whileChars as whileChar,
   ws0,
   ws1,
 

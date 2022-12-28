@@ -1,10 +1,11 @@
-import { startsWith, eat, fail, Parser, Ok } from './prelude.js'
+import type * as Parser from './parser.js'
+import * as Result from './result.js'
+import * as Reader from './reader.js'
 
-const literal =
-  <T extends string>(expected: T): Parser<T> =>
-    input =>
-      startsWith(input, expected) ?
-        eat(input, expected.length) as Ok<T>:
-        fail(input, `Expected ${expected}.`)
-
-export default literal
+export default function literal<T extends string>(expected: T): Parser.t<T> {
+  return function (reader) {
+    return Reader.startsWith(reader, expected) ?
+      Result.eat(reader, expected.length) as Result.Ok<T> :
+      Result.fail(reader, `Expected ${expected}.`)
+  }
+}

@@ -21,6 +21,6 @@ export const value =
     )(input)
 
 export const json =
-  trim(value)
+  trim()(value)
 
 export default json

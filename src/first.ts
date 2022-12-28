@@ -1,24 +1,24 @@
-import { fail, failed, type Parser, type Input, type Ok } from './prelude.js'
+import * as Result from './result.js'
+import type * as Parser from './parser.js'
+import type * as Reader from './reader.js'
 
-const reentry = new WeakMap<Input, Set<Parser<unknown>>>()
+const reentry = new WeakMap<Reader.t, Set<Parser.t<unknown>>>()
 
 /** Union where first successful match is returned. */
-const first =
-  <T extends Parser<unknown>[]>(...as: T): T[number] =>
-    input => {
-      const set = reentry.get(input) ?? reentry.set(input, new Set).get(input)!
-      for (const a of as) {
-        if (set.has(a)) {
-          continue
-        }
-        set.add(a)
-        const a_ = a(input)
-        set.delete(a)
-        if (!failed(a_)) {
-          return a_ as Ok<T[number]>
-        }
+export default function first<T extends Parser.t<unknown>[]>(...parsers: T): T[number] {
+  return function (reader) {
+    const set = reentry.get(reader) ?? reentry.set(reader, new Set).get(reader)!
+    for (const parser of parsers) {
+      if (set.has(parser)) {
+        continue
       }
-      return fail(input, `None of ${as.length} alternatives matched at ${input.offset}.`)
+      set.add(parser)
+      const result = parser(reader)
+      set.delete(parser)
+      if (!Result.failed(result)) {
+        return result as Result.Ok<T[number]>
+      }
     }
-
-export default first
+    return Result.fail(reader, `None of ${parsers.length} alternatives matched at ${reader.offset}.`)
+  }
+}

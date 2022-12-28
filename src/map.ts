@@ -1,12 +1,11 @@
-import { ok, failed, Parser } from './prelude.js'
+import * as Result from './result.js'
+import type * as Parser from './parser.js'
 
-const map =
-  <A, B>(a: Parser<A>, f: (_: A) => B): Parser<B> =>
-    input => {
-      const a_ = a(input)
-      return failed(a_) ?
-        a_ :
-        ok(a_.input, f(a_.value))
-    }
-
-export default map
+export default function map<A, B>(a: Parser.t<A>, f: (value: A) => B): Parser.t<B> {
+  return function (input) {
+    const a_ = a(input)
+    return Result.failed(a_) ?
+      a_ :
+      Result.ok(a_.input, f(a_.value))
+  }
+}

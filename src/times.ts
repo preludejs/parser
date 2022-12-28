@@ -1,19 +1,18 @@
-import { ok, fail, failed, Parser } from './prelude.js'
+import * as Result from './result.js'
+import type * as Parser from './parser.js'
 
-const times =
-  <A>(n: number, a: Parser<A>): Parser<A[]> =>
-    input => {
-      const rs: A[] = []
-      let input_ = input
-      for (let i = 0; i < n; i++) {
-        const a_ = a(input_)
-        if (failed(a_)) {
-          return fail(input, `Expected ${n} times, got ${i + 1} times only.`)
-        }
-        rs.push(a_.value)
-        input_ = a_.input
+export default function times<A>(n: number, a: Parser.t<A>): Parser.t<A[]> {
+  return function (reader) {
+    const rs: A[] = []
+    let reader_ = reader
+    for (let i = 0; i < n; i++) {
+      const a_ = a(reader_)
+      if (Result.failed(a_)) {
+        return Result.fail(reader, `Expected ${n} times, got ${i + 1} times only.`)
       }
-      return ok(input_, rs)
+      rs.push(a_.value)
+      reader_ = a_.input
     }
-
-export default times
+    return Result.ok(reader_, rs)
+  }
+}

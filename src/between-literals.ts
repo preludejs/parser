@@ -1,14 +1,15 @@
-import { type Input, startsWith, offsetOf, slice, ok, fail } from './prelude.js'
+import * as Reader from './reader.js'
+import * as Result from './result.js'
 
 export default function betweenLiterals(a: string, b: string) {
-  return function (input: Input) {
-    if (!startsWith(input, a)) {
-      return fail(input, `expected start literal ${a}`)
+  return function (reader: Reader.t) {
+    if (!Reader.startsWith(reader, a)) {
+      return Result.fail(reader, `expected start literal ${a}`)
     }
-    const offset = offsetOf(input, b, a.length)
+    const offset = Reader.offsetOf(reader, b, a.length)
     if (offset === -1) {
-      return fail(input, `expected end literal ${b}`)
+      return Result.fail(reader, `expected end literal ${b}`)
     }
-    return ok(input, slice(input, a.length, offset), offset + b.length)
+    return Result.ok(reader, Reader.slice(reader, a.length, offset), offset + b.length)
   }
 }
