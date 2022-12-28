@@ -5,7 +5,7 @@ import join from './join.js'
 import jsonString from './rfc8259/string.js'
 import literal from './literal.js'
 import separated0 from './separated0.js'
-import sorrounded from './sorrounded.js'
+import between from './between.js'
 import star from './star.js'
 import trim from './trim.js'
 import ws1 from './ws1.js'
@@ -32,7 +32,7 @@ export const string_: Parser.t<string> =
   either(unquoted, jsonString)
 
 export function sexp(reader: Reader.t): Result.t<Sexp> {
-  return sorrounded(lparen, rparen, separated0(ws1, either(string_, sexp)))(reader)
+  return between(lparen, rparen, separated0(ws1, either(string_, sexp)))(reader)
 }
 
 export const parse =

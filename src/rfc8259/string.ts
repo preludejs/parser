@@ -5,7 +5,7 @@ import literal from '../literal.js'
 import map from '../map.js'
 import right from '../right.js'
 import sequence from '../sequence.js'
-import sorrounded from '../sorrounded.js'
+import between from '../between.js'
 import star from '../star.js'
 import times from '../times.js'
 import chars from '../chars.js'
@@ -32,6 +32,6 @@ export const quotationMark =
   literal('"')
 
 export const string_ =
-  join(sorrounded(quotationMark, quotationMark, star(char)))
+  join(between(quotationMark, quotationMark, star(char)))
 
 export default string_

@@ -34,7 +34,7 @@ test('mutually recursive', () => {
     $.lazy(() => $.map($.sequence(expr, $.literal('*'), expr), _ => _[0] * _[2]))
 
   const grouped =
-    $.lazy(() => $.sorrounded($.literal('('), $.literal(')'), expr))
+    $.lazy(() => $.between($.literal('('), $.literal(')'), expr))
 
   const expr: $.Parser.t<number> =
     $.lazy(() => $.longest(

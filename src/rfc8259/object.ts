@@ -1,5 +1,5 @@
 import literal from '../literal.js'
-import sorrounded from '../sorrounded.js'
+import between from '../between.js'
 import string_ from './string.js'
 import trim from '../trim.js'
 import type * as Parser from '../parser.js'
@@ -23,6 +23,6 @@ export const member =
 
 export const object_ =
   <T>(value: Parser.t<T>): Parser.t<Record<string, undefined | T>> =>
-    map(sorrounded(beginObject, endObject, separated0(valueSeparator, member(value))), _ => Object.fromEntries(_))
+    map(between(beginObject, endObject, separated0(valueSeparator, member(value))), _ => Object.fromEntries(_))
 
 export default object_
