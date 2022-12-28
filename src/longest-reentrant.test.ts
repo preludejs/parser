@@ -25,7 +25,7 @@ test('reentry', () => {
 })
 
 test('longest', () => {
-  expect($.exhaustive($.star($.longest(
+  expect($.exhaustive($.star($.longestReentrant(
     $.literal('a'),
     $.literal('aa')
   )))('aaaaa')).toEqual([

@@ -37,7 +37,7 @@ test('mutually recursive', () => {
     $.lazy(() => $.between($.literal('('), $.literal(')'), expr))
 
   const expr: $.Parser.t<number> =
-    $.lazy(() => $.longest(
+    $.lazy(() => $.longestReentrant(
       number_,
       add,
       mul,
