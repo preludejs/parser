@@ -4,7 +4,7 @@ import type * as Parser from './parser.js'
 import ws0 from './ws0.js'
 
 /** @returns parser with left (default {@link ws0}) and right (default `left`) trim parsers. */
-export default function trim(
+export function trim(
   left: Parser.t<unknown> = ws0,
   right: Parser.t<unknown> = left
 ) {
@@ -12,3 +12,5 @@ export default function trim(
     return map(sequence(left, a, right), _ => _[1])
   }
 }
+
+export default trim

@@ -1,15 +1,18 @@
 import * as Reader from './reader.js'
 import * as Result from './result.js'
 
-export default function betweenLiterals(a: string, b: string) {
+/** @returns parser matching string between `start` and `end` literals. */
+export function betweenLiterals(start: string, end: string) {
   return function (reader: Reader.t) {
-    if (!Reader.startsWith(reader, a)) {
-      return Result.fail(reader, `expected start literal ${a}`)
+    if (!Reader.startsWith(reader, start)) {
+      return Result.fail(reader, `expected start literal ${start}`)
     }
-    const offset = Reader.offsetOf(reader, b, a.length)
+    const offset = Reader.offsetOf(reader, end, start.length)
     if (offset === -1) {
-      return Result.fail(reader, `expected end literal ${b}`)
+      return Result.fail(reader, `expected end literal ${end}`)
     }
-    return Result.ok(reader, Reader.slice(reader, a.length, offset), offset + b.length)
+    return Result.ok(reader, Reader.slice(reader, start.length, offset), offset + end.length)
   }
 }
+
+export default betweenLiterals

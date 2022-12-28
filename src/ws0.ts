@@ -1,6 +1,6 @@
 import whileChars from './while-chars.js'
 
-const ws0 =
+export const ws0 =
   whileChars(' \t\r\n\v\x0c\xa0\ufeff')
 
 export default ws0

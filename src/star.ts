@@ -2,7 +2,7 @@ import type * as Parser from './parser.js'
 import * as Result from './result.js'
 
 /** @returns parser matching at least `min` (default 0) times `a` parser. */
-export default function star<A>(parser: Parser.t<A>, min = 0): Parser.t<A[]> {
+export function star<A>(parser: Parser.t<A>, min = 0): Parser.t<A[]> {
   return function (reader) {
     const values: A[] = []
     let reader_ = reader
@@ -20,3 +20,5 @@ export default function star<A>(parser: Parser.t<A>, min = 0): Parser.t<A[]> {
     return Result.ok(reader_, values)
   }
 }
+
+export default star

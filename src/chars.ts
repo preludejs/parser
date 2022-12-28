@@ -3,7 +3,7 @@ import * as Result from './result.js'
 import type * as Parser from './parser.js'
 
 /** @returns parser matching one of provided chars. */
-export default function chars(chars_: string): Parser.t<string> {
+export function chars(chars_: string): Parser.t<string> {
   return chars_.length === 1 ?
     function (reader) {
       return Reader.peek(reader) === chars_ ?
@@ -17,3 +17,5 @@ export default function chars(chars_: string): Parser.t<string> {
         Result.fail(reader, `Expected one of chars ${chars_}.`)
     }
 }
+
+export default chars

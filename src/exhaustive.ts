@@ -6,7 +6,7 @@ import type * as Parser from './parser.js'
  * @returns top level string to result parser asserting all input has been parsed.
  * @throws If parser fails or input is not fully exhausted.
  */
-export default function exhaustive<A>(parser: Parser.t<A>) {
+export function exhaustive<A>(parser: Parser.t<A>) {
   return function (input: string): A {
     const reader = Reader.of(input)
     const result = parser(reader)
@@ -19,3 +19,5 @@ export default function exhaustive<A>(parser: Parser.t<A>) {
     return result.value
   }
 }
+
+export default exhaustive

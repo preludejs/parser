@@ -4,7 +4,7 @@ import sequence from './sequence.js'
 import star from './star.js'
 import type * as Parser from './parser.js'
 
-const separated2 =
+export const separated2 =
   <A>(s: Parser.t<unknown>, a: Parser.t<A>): Parser.t<A[]> =>
     map(sequence(a, star(right(s, a), 1)), _ => [ _[0], ..._[1] ])
 

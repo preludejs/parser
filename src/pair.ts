@@ -1,7 +1,7 @@
 import type * as Parser from './parser.js'
 import * as Result from './result.js'
 
-export default function pair<A, B>(a: Parser.t<A>, b: Parser.t<B>): Parser.t<[A, B]> {
+export function pair<A, B>(a: Parser.t<A>, b: Parser.t<B>): Parser.t<[A, B]> {
   return function (reader) {
     const a_ = a(reader)
     if (Result.failed(a_)) {
@@ -14,3 +14,5 @@ export default function pair<A, B>(a: Parser.t<A>, b: Parser.t<B>): Parser.t<[A,
     return Result.ok(b_.reader, [ a_.value, b_.value ])
   }
 }
+
+export default pair

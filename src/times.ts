@@ -1,7 +1,7 @@
 import * as Result from './result.js'
 import type * as Parser from './parser.js'
 
-export default function times<A>(n: number, a: Parser.t<A>): Parser.t<A[]> {
+export function times<A>(n: number, a: Parser.t<A>): Parser.t<A[]> {
   return function (reader) {
     const rs: A[] = []
     let reader_ = reader
@@ -16,3 +16,5 @@ export default function times<A>(n: number, a: Parser.t<A>): Parser.t<A[]> {
     return Result.ok(reader_, rs)
   }
 }
+
+export default times

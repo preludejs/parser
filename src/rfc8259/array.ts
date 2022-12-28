@@ -11,8 +11,8 @@ export const beginArray =
 export const endArray =
   trim()(literal(']'))
 
-export const array =
-  <T>(value: Parser.t<T>): Parser.t<T[]> =>
-    sorrounded(beginArray, endArray, separated0(valueSeparator, value))
+export function array<T>(parser: Parser.t<T>): Parser.t<T[]> {
+  return sorrounded(beginArray, endArray, separated0(valueSeparator, parser))
+}
 
 export default array

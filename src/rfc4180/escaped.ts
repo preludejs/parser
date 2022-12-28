@@ -10,7 +10,7 @@ import star from '../star.js'
 import textdata from './textdata.js'
 import first from '../first.js'
 
-const escaped =
+export const escaped =
   sorrounded1(dquote, join(star(first(textdata, comma, cr, lf, map(dquote2, () => '"')))))
 
 export default escaped

@@ -4,4 +4,6 @@ import map from '../map.js'
 const true_ =
   map(literal('true'), () => true)
 
+export { true_ as true }
+
 export default true_

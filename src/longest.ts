@@ -4,7 +4,7 @@ import * as Result from './result.js'
 
 const reentry = new WeakMap<Reader.t, Set<Parser.t<unknown>>>()
 
-const longest =
+export const longest =
   <T extends Parser.t<unknown>[]>(...as: T): Parser.t<Parser.Parsed<T[number]>> =>
     reader => {
       const set = reentry.get(reader) ?? reentry.set(reader, new Set).get(reader)!

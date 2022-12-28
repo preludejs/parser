@@ -1,7 +1,7 @@
 import * as Result from './result.js'
 import type * as Parser from './parser.js'
 
-export default function sequence<T extends Parser.t<unknown>[]>(
+export function sequence<T extends Parser.t<unknown>[]>(
   ...parsers: T
 ): Parser.t<{ [K in keyof T]: Parser.Parsed<T[K]> }> {
   return function (reader) {
@@ -18,3 +18,9 @@ export default function sequence<T extends Parser.t<unknown>[]>(
     return Result.ok(reader_, rs) as Result.Ok<{ [K in keyof T]: Parser.Parsed<T[K]> }>
   }
 }
+
+export {
+  sequence as seq
+}
+
+export default sequence

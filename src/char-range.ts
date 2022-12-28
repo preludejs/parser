@@ -7,7 +7,7 @@ import type * as Parser from './parser.js'
  * @example
  *   charRange('09azAZ') // equivalent to /[0-9a-zA-Z]/ regexp.
  */
-export default function charRange(ranges: string): Parser.t<string> {
+export function charRange(ranges: string): Parser.t<string> {
   return function (reader) {
     const c = Reader.peek(reader)
     if (!c) {
@@ -21,3 +21,5 @@ export default function charRange(ranges: string): Parser.t<string> {
     return Result.fail(reader, `Not in char range ${ranges}.`)
   }
 }
+
+export default charRange

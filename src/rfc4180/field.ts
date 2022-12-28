@@ -1,8 +1,8 @@
 import either from '../either.js'
-import escaped from './excaped.js'
+import escaped from './escaped.js'
 import nonEscaped from './non-excaped.js'
 
-const field =
+export const field =
   either(escaped, nonEscaped)
 
 export default field

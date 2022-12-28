@@ -22,7 +22,7 @@ export const escaped =
     map(sequence(literal('u'), join(times(4, hexdigit))), _ => String.fromCharCode(parseInt(_[1], 16)))
   ))
 
-const unescaped =
+export const unescaped =
   charRange('\x20\x21\x23\x5b\x5d\uffff') // TODO: 10FFFF
 
 export const char =

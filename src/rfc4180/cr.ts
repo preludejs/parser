@@ -1,6 +1,6 @@
 import literal from '../literal.js'
 
-const cr =
+export const cr =
   literal('\r')
 
 export default cr

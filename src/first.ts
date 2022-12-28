@@ -5,7 +5,7 @@ import type * as Reader from './reader.js'
 const reentry = new WeakMap<Reader.t, Set<Parser.t<unknown>>>()
 
 /** Union where first successful match is returned. */
-export default function first<T extends Parser.t<unknown>[]>(...parsers: T): T[number] {
+export function first<T extends Parser.t<unknown>[]>(...parsers: T): T[number] {
   return function (reader) {
     const set = reentry.get(reader) ?? reentry.set(reader, new Set).get(reader)!
     for (const parser of parsers) {
@@ -22,3 +22,5 @@ export default function first<T extends Parser.t<unknown>[]>(...parsers: T): T[n
     return Result.fail(reader, `None of ${parsers.length} alternatives matched at ${reader.offset}.`)
   }
 }
+
+export default first

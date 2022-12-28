@@ -1,9 +1,9 @@
 import type * as Parser from './parser.js'
 import map from './map.js'
 
-/** Joins `string` (or `undefined`) result array into single `string` result. */
-const join =
-  (a: Parser.t<(undefined | string)[]>, glue = ''): Parser.t<string> =>
-    map(a, _ => _.filter(__ => typeof __ !== 'undefined').join(glue))
+/** Joins result array of optional strings into single string using separator (default empty string). */
+export function join(parser: Parser.t<(undefined | string)[]>, separator = ''): Parser.t<string> {
+  return map(parser, values => values.filter(value => typeof value !== 'undefined').join(separator))
+}
 
 export default join

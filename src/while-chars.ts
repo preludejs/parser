@@ -3,7 +3,7 @@ import * as Reader from './reader.js'
 import * as Result from './result.js'
 
 /** Matches any char listed in `chars` at least `min` (default `0`) times. */
-export default function whileChars(chars: string, min = 0): Parser.t<string> {
+export function whileChars(chars: string, min = 0): Parser.t<string> {
   return function (reader) {
     let i = 0
     let char = Reader.peek(reader, i)
@@ -15,3 +15,5 @@ export default function whileChars(chars: string, min = 0): Parser.t<string> {
       Result.fail(reader, `While char(s) ${chars} failed for min ${min} (i ${i}).`)
   }
 }
+
+export default whileChars
