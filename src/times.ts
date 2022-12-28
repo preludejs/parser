@@ -11,7 +11,7 @@ export default function times<A>(n: number, a: Parser.t<A>): Parser.t<A[]> {
         return Result.fail(reader, `Expected ${n} times, got ${i + 1} times only.`)
       }
       rs.push(a_.value)
-      reader_ = a_.input
+      reader_ = a_.reader
     }
     return Result.ok(reader_, rs)
   }

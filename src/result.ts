@@ -2,14 +2,14 @@ import * as Reader from './reader.js'
 
 /** Represents successful parsing result. */
 export type Ok<T> = {
-  input: Reader.t,
+  reader: Reader.t,
   value: T
   reason?: undefined
 }
 
 /** Represents parsing failure. */
 export type Fail = {
-  input: Reader.t,
+  reader: Reader.t,
   value?: undefined,
   reason: string
 }
@@ -24,7 +24,7 @@ export type t<T> =
 /** @returns parsed result with provided value and optional reader advance. */
 export const ok =
   <T>(reader: Reader.t, value: T, advance = 0): Ok<T> => ({
-    input: {
+    reader: {
       input: reader.input,
       offset: reader.offset + advance
     },
@@ -43,7 +43,7 @@ export const eat =
 
 /** @returns failure result. */
 export const fail =
-  (input: Reader.t, reason: string): Fail => ({
-    input,
+  (reader: Reader.t, reason: string): Fail => ({
+    reader: reader,
     reason
   })

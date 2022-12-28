@@ -6,25 +6,25 @@ const reentry = new WeakMap<Reader.t, Set<Parser.t<unknown>>>()
 
 const longest =
   <T extends Parser.t<unknown>[]>(...as: T): Parser.t<Parser.Parsed<T[number]>> =>
-    input => {
-      const set = reentry.get(input) ?? reentry.set(input, new Set).get(input)!
+    reader => {
+      const set = reentry.get(reader) ?? reentry.set(reader, new Set).get(reader)!
       let r: undefined | Result.Ok<unknown> = undefined
       for (const a of as) {
         if (set.has(a)) {
           continue
         }
         set.add(a)
-        const a_ = a(input)
+        const a_ = a(reader)
         set.delete(a)
         if (!Result.failed(a_)) {
-          if (r === undefined || r.input.offset < a_.input.offset) {
+          if (r === undefined || r.reader.offset < a_.reader.offset) {
             r = a_
           }
         }
       }
       return r !== undefined ?
         r as Result.Ok<Parser.Parsed<T[number]>> :
-        Result.fail(input, `None of ${as.length} alternatives matched at ${input.offset}.`)
+        Result.fail(reader, `None of ${as.length} alternatives matched at ${reader.offset}.`)
     }
 
 export default longest

@@ -9,7 +9,7 @@ import true_ from './true.js'
 import first from '../first.js'
 
 export const value =
-  input =>
+  reader =>
     first(
       string_,
       number_,
@@ -18,7 +18,7 @@ export const value =
       false_,
       object_(value),
       array(value)
-    )(input)
+    )(reader)
 
 export const json =
   trim()(value)

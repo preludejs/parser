@@ -5,12 +5,12 @@ import * as Result from './result.js'
 
 /** @returns parser succeeding on the first matched literal. */
 export default function firstLiteral<T extends string>(...literals: T[]): Parser.t<T> {
-  return function (input) {
+  return function (reader) {
     for (const literal of literals) {
-      if (Reader.startsWith(input, literal)) {
-        return Result.eat(input, literal.length) as Result.Ok<T>
+      if (Reader.startsWith(reader, literal)) {
+        return Result.eat(reader, literal.length) as Result.Ok<T>
       }
     }
-    return Result.fail(input, `Expected one of literals ${literals.join(', ')}.`)
+    return Result.fail(reader, `Expected one of literals ${literals.join(', ')}.`)
   }
 }

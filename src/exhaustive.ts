@@ -6,15 +6,16 @@ import type * as Parser from './parser.js'
  * @returns top level string to result parser asserting all input has been parsed.
  * @throws If parser fails or input is not fully exhausted.
  */
-export default function exhaustive<A>(a: Parser.t<A>) {
+export default function exhaustive<A>(parser: Parser.t<A>) {
   return function (input: string): A {
-    const a_ = a(Reader.of(input))
-    if (Result.failed(a_)) {
-      throw new Error(a_.reason)
+    const reader = Reader.of(input)
+    const result = parser(reader)
+    if (Result.failed(result)) {
+      throw new Error(result.reason)
     }
-    if (!Reader.end(a_.input)) {
-      throw new Error(`Expected exhaustive result, unparsed ${a_.input.input.length - a_.input.offset}.`)
+    if (!Reader.end(result.reader)) {
+      throw new Error(`Expected exhaustive result, unparsed ${result.reader.input.length - result.reader.offset}.`)
     }
-    return a_.value
+    return result.value
   }
 }

@@ -6,10 +6,10 @@ import * as RadixTrie from '@prelude/radix-trie'
 export default function longestLiteral<T extends string>(...literals: T[]): Parser.t<T> {
   const n = literals.length
   const trie = RadixTrie.of(literals)
-  return function (input) {
-    const length = RadixTrie.longestPrefixLength(trie, input.input, input.offset)
+  return function (reader) {
+    const length = RadixTrie.longestPrefixLength(trie, reader.input, reader.offset)
     return length > 0 ?
-      Result.eat(input, length) as Result.Ok<T> :
-      Result.fail(input, `Expected one of ${n} literals.`)
+      Result.eat(reader, length) as Result.Ok<T> :
+      Result.fail(reader, `Expected one of ${n} literals.`)
   }
 }

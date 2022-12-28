@@ -12,7 +12,7 @@ export default function star<A>(parser: Parser.t<A>, min = 0): Parser.t<A[]> {
         break
       }
       values.push(result.value)
-      reader_ = result.input
+      reader_ = result.reader
     }
     if (values.length < min) {
       return Result.fail(reader, `Expected to match minimum length ${min}, matched only ${values.length}.`)

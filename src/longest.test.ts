@@ -5,14 +5,14 @@ test('reentry', () => {
     | number
     | { type: 'Eq', lhs: Node, rhs: Node }
   const p_ =
-    input =>
-      $.map($.sequence(p, $.literal('='), p), _ => ({ type: 'Eq' as const, lhs: _[0], rhs: _[2] }))(input)
+    (reader: $.Reader.t) =>
+      $.map($.sequence(p, $.literal('='), p), _ => ({ type: 'Eq' as const, lhs: _[0], rhs: _[2] }))(reader)
   const p: $.Parser.t<Node> =
-    input =>
+    reader =>
       $.first(
         p_,
         $.map($.charRange('09'), parseFloat)
-      )(input)
+      )(reader)
   expect($.exhaustive(p)('1=2=3')).toEqual({
     type: 'Eq',
     lhs: 1,

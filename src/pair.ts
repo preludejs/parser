@@ -7,10 +7,10 @@ export default function pair<A, B>(a: Parser.t<A>, b: Parser.t<B>): Parser.t<[A,
     if (Result.failed(a_)) {
       return a_
     }
-    const b_ = b(a_.input)
+    const b_ = b(a_.reader)
     if (Result.failed(b_)) {
       return Result.fail(reader, b_.reason)
     }
-    return Result.ok(b_.input, [ a_.value, b_.value ])
+    return Result.ok(b_.reader, [ a_.value, b_.value ])
   }
 }

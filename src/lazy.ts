@@ -5,11 +5,11 @@ const lazy =
   <P extends Parser.t<unknown>>(f: () => P): P => {
     let parser: P
     return (
-      input => {
+      reader => {
         if (typeof parser === 'undefined') {
           parser = f()
         }
-        return parser(input)
+        return parser(reader)
       }
     ) as P
   }

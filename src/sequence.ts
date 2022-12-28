@@ -13,7 +13,7 @@ export default function sequence<T extends Parser.t<unknown>[]>(
         return Result.fail(reader, `Failed sequence. ${result.reason}`)
       }
       rs.push(result.value)
-      reader_ = result.input
+      reader_ = result.reader
     }
     return Result.ok(reader_, rs) as Result.Ok<{ [K in keyof T]: Parser.Parsed<T[K]> }>
   }
