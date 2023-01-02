@@ -13,6 +13,12 @@ export const of =
     offset
   })
 
+export const advanced =
+  (reader: Reader, advance: number): Reader => ({
+    input: reader.input,
+    offset: reader.offset + advance
+  })
+
 /** @returns character at `offset` from current input position, `undefined` if out of bound. */
 export const peek =
   (reader: Reader, offset = 0): undefined | string =>

@@ -24,10 +24,7 @@ export type t<T> =
 /** @returns parsed result with provided value and optional reader advance. */
 export const ok =
   <T>(reader: Reader.t, value: T, advance = 0): Ok<T> => ({
-    reader: {
-      input: reader.input,
-      offset: reader.offset + advance
-    },
+    reader: Reader.advanced(reader, advance),
     value
   })
 

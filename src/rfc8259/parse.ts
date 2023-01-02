@@ -1,7 +1,7 @@
-import exhaustive from '../exhaustive.js'
+import * as Parser from '../parser.js'
 import json from './json.js'
 
-export const parse =
-  exhaustive(json)
+export const parser =
+  Parser.parser(json)
 
-export default parse
+export default parser

@@ -1,19 +1,19 @@
-import * as $ from './index.js'
+import * as P from './index.js'
 
 test('reentry', () => {
   type Node =
     | number
     | { type: 'Eq', lhs: Node, rhs: Node }
   const p_ =
-    (reader: $.Reader.t) =>
-      $.map($.sequence(p, $.literal('='), p), _ => ({ type: 'Eq' as const, lhs: _[0], rhs: _[2] }))(reader)
-  const p: $.Parser.t<Node> =
+    (reader: P.Reader.t) =>
+      P.map(P.sequence(p, P.literal('='), p), _ => ({ type: 'Eq' as const, lhs: _[0], rhs: _[2] }))(reader)
+  const p: P.t<Node> =
     reader =>
-      $.first(
+      P.first(
         p_,
-        $.map($.charRange('09'), parseFloat)
+        P.map(P.charRange('09'), parseFloat)
       )(reader)
-  expect($.exhaustive(p)('1=2=3')).toEqual({
+  expect(P.parser(p)('1=2=3')).toEqual({
     type: 'Eq',
     lhs: 1,
     rhs: {
@@ -25,9 +25,9 @@ test('reentry', () => {
 })
 
 test('longest', () => {
-  expect($.exhaustive($.star($.longestReentrant(
-    $.literal('a'),
-    $.literal('aa')
+  expect(P.parser(P.star(P.longestReentrant(
+    P.literal('a'),
+    P.literal('aa')
   )))('aaaaa')).toEqual([
     'aa',
     'aa',

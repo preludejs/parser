@@ -1,4 +1,4 @@
-import * as $ from './index.js'
+import * as P from './index.js'
 
 test('mutually recursive', () => {
 
@@ -25,25 +25,25 @@ test('mutually recursive', () => {
     | Multiplication
 
   const number_ =
-    $.Rfc8259.number
+    P.Rfc8259.number
 
   const add =
-    $.lazy(() => $.map($.sequence(expr, $.literal('+'), expr), _ => _[0] + _[2]))
+    P.lazy(() => P.map(P.sequence(expr, P.literal('+'), expr), _ => _[0] + _[2]))
 
   const mul =
-    $.lazy(() => $.map($.sequence(expr, $.literal('*'), expr), _ => _[0] * _[2]))
+    P.lazy(() => P.map(P.sequence(expr, P.literal('*'), expr), _ => _[0] * _[2]))
 
   const grouped =
-    $.lazy(() => $.between($.literal('('), $.literal(')'), expr))
+    P.lazy(() => P.between(P.literal('('), P.literal(')'), expr))
 
-  const expr: $.Parser.t<number> =
-    $.lazy(() => $.longestReentrant(
+  const expr: P.t<number> =
+    P.lazy(() => P.longestReentrant(
       number_,
       add,
       mul,
       grouped
     ))
 
-  expect($.exhaustive(expr)('(2*1)+1')).toEqual(3)
+  expect(P.parser(expr)('(2*1)+1')).toEqual(3)
 
 })

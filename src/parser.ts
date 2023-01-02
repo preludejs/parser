@@ -1,5 +1,5 @@
-import type * as Reader from './reader.js'
-import type * as Result from './result.js'
+import * as Reader from './reader.js'
+import * as Result from './result.js'
 
 export type Parser<T> =
   (reader: Reader.t) =>
@@ -12,3 +12,25 @@ export type Parsed<T> =
   T extends Parser<infer R> ?
     R :
     never
+
+export function parse<A>(parser: Parser<A>, input: string): A {
+  const reader = Reader.of(input)
+  const result = parser(reader)
+  if (Result.failed(result)) {
+    throw new Error(result.reason)
+  }
+  if (!Reader.end(result.reader)) {
+    throw new Error(`Expected exhaustive result, unparsed ${result.reader.input.length - result.reader.offset}.`)
+  }
+  return result.value
+}
+
+/**
+ * @returns top level string to result parser asserting all input has been parsed.
+ * @throws If parser fails or input is not fully exhausted.
+ */
+export function parser<A>(parser: Parser<A>) {
+  return function (input: string): A {
+    return parse(parser, input)
+  }
+}

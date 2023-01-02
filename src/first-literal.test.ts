@@ -1,7 +1,7 @@
-import * as $ from './index.js'
+import * as P from './index.js'
 
 test('firstLiteral', () => {
-  expect($.exhaustive($.star($.firstLiteral(
+  expect(P.parser(P.star(P.firstLiteral(
     'a',
     'aa'
   )))('aaaaa')).toEqual([
