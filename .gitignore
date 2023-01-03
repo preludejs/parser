@@ -1,8 +1,7 @@
-*.js
-node_modules
-wip
-mjs
-cjs
 .vscode/configurationCache.log
 .vscode/dryrun.log
 .vscode/targets.log
+*.js
+cjs
+mjs
+node_modules

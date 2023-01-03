@@ -1,5 +1,7 @@
 .github
 .vscode
+*.sh
 *.test.*
-jest.config.json
-wip
+jest.*
+Makefile
+tsconfig.json
