@@ -32,7 +32,7 @@ export const startsWith =
 /** @returns -1 if not found, otherwise offset of value. */
 export const offsetOf =
   (reader: Reader, value: string, position = 0): number =>
-    reader.input.indexOf(value, reader.offset + position)
+    Math.max(-1, reader.input.indexOf(value, reader.offset + position) - reader.offset)
 
 /** @returns rest of input. */
 export const rest =
@@ -41,7 +41,7 @@ export const rest =
 
 export const slice =
   (reader: Reader, start: number, end: number): string =>
-    reader.input.slice(start + reader.offset, end + reader.offset)
+    reader.input.slice(reader.offset + start, reader.offset + end)
 
 /** @returns `true` if end of input has been reached, `false` otherwise. */
 export const end =
