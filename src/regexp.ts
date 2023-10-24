@@ -3,25 +3,17 @@ import type * as Parser from './parser.js'
 
 type Indices = [number, number][] & { groups?: Record<string, [number, number]> }
 
-export function regex(
-  re: RegExp,
+export function regexp(
+  regexp: RegExp,
   valueGroup: number | string = 0,
   advanceGroup: number | string = 0,
 ): Parser.t<string> {
-  if (!re.sticky) {
-    throw new Error('expected regex with sticky flag (y).')
-  }
-  if (!re.flags.includes('d')) {
-    throw new Error('expected regex with has-indices flag (d).')
-  }
-  if (re.global) {
-    throw new Error('expected regex without global flag (g).')
-  }
+  const re = new RegExp(regexp.source, 'dy' + regexp.flags.replace(/[dyg]/g, ''))
   return function (reader) {
     re.lastIndex = reader.offset
     const match = re.exec(reader.input)
     if (!match) {
-      return Result.fail(reader, 'regex did not match')
+      return Result.fail(reader, `regexp ${re} did not match`)
     }
     const valueString =
       typeof valueGroup === 'string' && match.groups ?
@@ -45,6 +37,6 @@ export function regex(
   }
 }
 
-export { regex as re }
+export { regexp as re }
 
-export default regex
+export default regexp
