@@ -1,5 +1,5 @@
 test:
-	pnpm exec jest
+	pnpm t
 
 clean:
 	rm -Rf cjs mjs test/*.js
