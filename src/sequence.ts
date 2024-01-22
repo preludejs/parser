@@ -1,14 +1,15 @@
 import * as Result from './result.js'
 import type * as Parser from './parser.js'
+import lift from './lift.js'
 
-export function sequence<T extends Parser.t<unknown>[]>(
+export function sequence<T extends Parser.Liftable[]>(
   ...parsers: T
-): Parser.t<{ [K in keyof T]: Parser.Parsed<T[K]> }> {
+): Parser.t<{ [K in keyof T]: Parser.Parsed<Parser.Lifted<T[K]>> }> {
   return function (reader) {
     const rs: unknown[] = []
     let reader_ = reader
     for (const parser of parsers) {
-      const result = parser(reader_)
+      const result = lift(parser)(reader_)
       if (Result.failed(result)) {
         return Result.fail(reader, `Failed sequence. ${result.reason}`)
       }

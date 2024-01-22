@@ -13,6 +13,20 @@ export type Parsed<T> =
     R :
     never
 
+export type Liftable =
+  | string
+  | RegExp
+  | Parser<unknown>
+
+export type Lifted<T extends Liftable> =
+  T extends string ?
+    Parser<T> :
+    T extends RegExp ?
+      Parser<string> :
+      T extends Parser<unknown> ?
+        T :
+        never
+
 export function parse<A>(parser: Parser<A>, input: string): A {
   const reader = Reader.of(input)
   const result = parser(reader)
