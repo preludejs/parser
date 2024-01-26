@@ -11,7 +11,7 @@ export type Fail = {
   received: unknown
 }
 
-export type Result<T> =
+export type Result<T = unknown> =
   | Ok<T>
   | Fail
 
@@ -24,7 +24,7 @@ export type t<T> =
 
 /** @returns `true` if provided `result` is failure, `false` otherwise. */
 export const failed =
-  (result: Result<unknown>): result is Fail =>
+  (result: Result): result is Fail =>
     result.status === 'refuted'
 
 /** @return failure reason without inspecting received value. */

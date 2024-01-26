@@ -1,17 +1,26 @@
-import type * as Parser from './parser.js'
+import type * as P from './parser.js'
 import * as Result from './result.js'
+import lift from './lift.js'
 
-export function pair<A, B>(a: Parser.t<A>, b: Parser.t<B>): Parser.t<[A, B]> {
+export function pair<A extends P.Liftable, B extends P.Liftable>(
+  a: A,
+  b: B
+): P.t<[ P.Parsed<A>, P.Parsed<B> ]> {
+  const liftedA = lift(a)
+  const liftedB = lift(b)
   return function (reader) {
-    const a_ = a(reader)
-    if (Result.failed(a_)) {
-      return a_
+    const resultA = liftedA(reader)
+    if (Result.failed(resultA)) {
+      return resultA
     }
-    const b_ = b(a_.reader)
-    if (Result.failed(b_)) {
-      return Result.fail(reader, b_.reason)
+    const resultB = liftedB(resultA.reader)
+    if (Result.failed(resultB)) {
+      return Result.fail(reader, resultB.reason)
     }
-    return Result.ok(b_.reader, [ a_.value, b_.value ])
+    return Result.ok(resultB.reader, [
+      resultA.value as P.Parsed<A>,
+      resultB.value as P.Parsed<B>
+    ])
   }
 }
 

@@ -1,17 +1,22 @@
-import type * as Parser from './parser.js'
 import * as Result from './result.js'
+import lift from './lift.js'
+import type { Parser, Liftable, Parsed } from './parser.js'
 
 /** @returns parser matching at least `min` (default 0) times `a` parser. */
-export function star<A>(parser: Parser.t<A>, min = 0): Parser.t<A[]> {
+export function star<A extends Liftable>(
+  parser: A,
+  min = 0
+): Parser<Parsed<A>[]> {
+  const liftedParser = lift(parser)
   return function (reader) {
-    const values: A[] = []
+    const values: Parsed<A>[] = []
     let reader_ = reader
     while (true) {
-      const result = parser(reader_)
+      const result = liftedParser(reader_)
       if (Result.failed(result)) {
         break
       }
-      values.push(result.value)
+      values.push(result.value as Parsed<A>)
       reader_ = result.reader
     }
     if (values.length < min) {

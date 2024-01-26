@@ -2,7 +2,7 @@ import * as Result from './result.js'
 import separated1 from './separated1.js'
 import type * as Parser from './parser.js'
 
-export function separated0<A>(s: Parser.t<unknown>, a: Parser.t<A>): Parser.t<A[]> {
+export function separated0<A>(s: Parser.t, a: Parser.t<A>): Parser.t<A[]> {
   return function (reader) {
     const a_ = separated1(s, a)(reader)
     return Result.failed(a_) ?

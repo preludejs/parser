@@ -1,7 +1,7 @@
 import * as Reader from './reader.js'
 
 /** Represents successful parsing result. */
-export type Ok<T> = {
+export type Ok<T = unknown> = {
   reader: Reader.t,
   value: T
   reason?: undefined
@@ -14,7 +14,7 @@ export type Fail = {
   reason: string
 }
 
-export type Result<T> =
+export type Result<T = unknown> =
   | Ok<T>
   | Fail
 
@@ -30,7 +30,7 @@ export const ok =
 
 /** @returns `true` if result is a failure, `false` otherwise. */
 export const failed =
-  <T>(result: Result<T>): result is Fail =>
+  (result: Result): result is Fail =>
     result.reason !== undefined
 
 /** @returns consumes `length` number of characters from input, returning it as result value. */

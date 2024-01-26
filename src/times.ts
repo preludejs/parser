@@ -1,19 +1,21 @@
 import * as Result from './result.js'
-import type * as Parser from './parser.js'
+import type { Parser, Parsed, Liftable } from './parser.js'
+import lift from './lift.js'
 
-export function times<A>(n: number, a: Parser.t<A>): Parser.t<A[]> {
+export function times<A extends Liftable>(n: number, parser: A): Parser<Parsed<A>[]> {
+  const liftedParser = lift(parser)
   return function (reader) {
-    const rs: A[] = []
+    const results: Parsed<A>[] = []
     let reader_ = reader
     for (let i = 0; i < n; i++) {
-      const a_ = a(reader_)
-      if (Result.failed(a_)) {
+      const result = liftedParser(reader_)
+      if (Result.failed(result)) {
         return Result.fail(reader, `Expected ${n} times, got ${i + 1} times only.`)
       }
-      rs.push(a_.value)
-      reader_ = a_.reader
+      results.push(result.value as Parsed<A>)
+      reader_ = result.reader
     }
-    return Result.ok(reader_, rs)
+    return Result.ok(reader_, results)
   }
 }
 

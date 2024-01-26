@@ -5,11 +5,11 @@ import type * as Parser from './parser.js'
  * Matches longest successful result.
  * @see {@link longestReentrant} for variant that can match recursive parsers.
  */
-export function longest<Parsers extends Parser.t<unknown>[]>(
+export function longest<Parsers extends Parser.t[]>(
   ...parsers: Parsers
 ): Parser.t<Parser.Parsed<Parsers[number]>> {
   return function (reader) {
-    let result: undefined | Result.Ok<unknown> = undefined
+    let result: undefined | Result.Ok = undefined
     for (const parser of parsers) {
       const result_ = parser(reader)
       if (!Result.failed(result_)) {

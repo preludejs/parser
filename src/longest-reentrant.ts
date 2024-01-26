@@ -2,14 +2,14 @@ import * as Result from './result.js'
 import type * as Parser from './parser.js'
 import type * as Reader from './reader.js'
 
-const reentry = new WeakMap<Reader.t, Set<Parser.t<unknown>>>()
+const reentry = new WeakMap<Reader.t, Set<Parser.t>>()
 
-export function longestReentrant<Parsers extends Parser.t<unknown>[]>(
+export function longestReentrant<Parsers extends Parser.t[]>(
   ...parsers: Parsers
 ): Parser.t<Parser.Parsed<Parsers[number]>> {
   return function (reader) {
     const set = reentry.get(reader) ?? reentry.set(reader, new Set).get(reader)!
-    let result: undefined | Result.Ok<unknown> = undefined
+    let result: undefined | Result.Ok = undefined
     for (const parser of parsers) {
       if (set.has(parser)) {
         continue
