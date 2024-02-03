@@ -3,8 +3,8 @@ import string_ from './string.js'
 import trim from '../trim.js'
 import type * as Parser from '../parser.js'
 import map from '../map.js'
-import separated0 from '../separated0.js'
-import seq from '../sequence.js'
+import sep0 from '../sep0.js'
+import seq from '../seq.js'
 import valueSeparator from './value-separator.js'
 
 export const beginObject =
@@ -22,6 +22,6 @@ export const member =
 
 export const object =
   <T>(value: Parser.t<T>): Parser.t<Record<string, undefined | T>> =>
-    map(between(beginObject, endObject, separated0(valueSeparator, member(value))), _ => Object.fromEntries(_))
+    map(between(beginObject, endObject, sep0(valueSeparator, member(value))), _ => Object.fromEntries(_))
 
 export default object

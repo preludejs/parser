@@ -1,5 +1,5 @@
 import map from './map.js'
-import seq from './sequence.js'
+import seq from './seq.js'
 import type * as Parser from './parser.js'
 import ws0 from './ws0.js'
 

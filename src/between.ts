@@ -1,5 +1,5 @@
 import map from './map.js'
-import seq from './sequence.js'
+import seq from './seq.js'
 import type { Parser, Liftable } from './parser.js'
 
 /** @returns `a` parser sorrounded by `start` and `end`. */

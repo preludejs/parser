@@ -4,7 +4,7 @@ import join from '../join.js'
 import lit from '../lit.js'
 import map from '../map.js'
 import maybe from '../maybe.js'
-import seq from '../sequence.js'
+import seq from '../seq.js'
 import star from '../star.js'
 import chars from '../chars.js'
 

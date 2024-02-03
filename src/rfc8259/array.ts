@@ -1,4 +1,4 @@
-import sep0 from '../separated0.js'
+import sep0 from '../sep0.js'
 import between from '../between.js'
 import trim from '../trim.js'
 import type * as Parser from '../parser.js'
