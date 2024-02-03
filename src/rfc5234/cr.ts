@@ -1,4 +1,4 @@
-import lit from '../literal.js'
+import lit from '../lit.js'
 
 /**
  * @see https://datatracker.ietf.org/doc/html/rfc5234#appendix-B.1

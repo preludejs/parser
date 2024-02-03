@@ -1,4 +1,4 @@
-import lit from '../literal.js'
+import lit from '../lit.js'
 
 export const dquote2 =
   lit('""')

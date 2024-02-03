@@ -25,7 +25,8 @@ test('reentry', () => {
 })
 
 test('longest', () => {
-  expect(P.parser(P.star(P.longestReentrant('a', 'aa')))('aaaaa')).toEqual([
+  const p = P.longestReentrant('a', 'aa')
+  expect(P.parser(P.star(p))('aaaaa')).toEqual([
     'aa',
     'aa',
     'a'

@@ -1,6 +1,6 @@
 import type { Liftable, Lifted } from './parser.js'
 import re from './regexp.js'
-import lit from './literal.js'
+import lit from './lit.js'
 
 export const lift =
   <T extends Liftable>(liftable: T): Lifted<T> => {

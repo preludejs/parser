@@ -3,7 +3,7 @@ import * as Reader from './reader.js'
 import * as Result from './result.js'
 import type * as Parser from './parser.js'
 
-export const literal =
+export const lit =
   <T extends string>(...literals: T[]): Parser.t<T> => {
     if (literals.length === 1) {
       return reader =>
@@ -21,7 +21,7 @@ export const literal =
   }
 
 export {
-  literal as lit
+  lit as literal
 }
 
-export default literal
+export default lit
