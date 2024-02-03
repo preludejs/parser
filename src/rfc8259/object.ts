@@ -1,4 +1,3 @@
-import literal from '../literal.js'
 import between from '../between.js'
 import string_ from './string.js'
 import trim from '../trim.js'
@@ -9,13 +8,13 @@ import sequence from '../sequence.js'
 import valueSeparator from './value-separator.js'
 
 export const beginObject =
-  trim()(literal('{'))
+  trim()('{')
 
 export const endObject =
-  trim()(literal('}'))
+  trim()('}')
 
 export const nameSeparator =
-  trim()(literal(':'))
+  trim()(':')
 
 export const member =
   <T>(value: Parser.t<T>): Parser.t<[string, undefined | T]> =>

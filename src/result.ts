@@ -1,23 +1,25 @@
 import * as Reader from './reader.js'
 
-/** Represents successful parsing result. */
+/** Successful parsing result. */
 export type Ok<T = unknown> = {
   reader: Reader.t,
   value: T
   reason?: undefined
 }
 
-/** Represents parsing failure. */
+/** Parsing failure with a reason. */
 export type Fail = {
   reader: Reader.t,
   value?: undefined,
   reason: string
 }
 
+/** Parser result of some type (default `unknown`). */
 export type Result<T = unknown> =
   | Ok<T>
   | Fail
 
+/** Parser result of some type (default `unknown`). */
 export type t<T> =
   Result<T>
 

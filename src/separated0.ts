@@ -1,14 +1,21 @@
 import * as Result from './result.js'
-import separated1 from './separated1.js'
-import type * as Parser from './parser.js'
+import rescue from './rescue.js'
+import sep1 from './separated1.js'
+import type { Parser, Liftable } from './parser.js'
 
-export function separated0<A>(s: Parser.t, a: Parser.t<A>): Parser.t<A[]> {
-  return function (reader) {
-    const a_ = separated1(s, a)(reader)
-    return Result.failed(a_) ?
-      Result.ok(reader, []) :
-      a_
-  }
+/**
+ * Parses `parser` zero or more elements separated by `separator`.
+ * Potentially non-advancing parser.
+ * @param separator
+ * @param parser
+ * @returns
+ */
+export const separated0 =
+  <A>(separator: Liftable, parser: Parser<A>): Parser<A[]> =>
+    rescue(sep1(separator, parser), _ => Result.ok(_.reader, []))
+
+export {
+  separated0 as sep0
 }
 
 export default separated0

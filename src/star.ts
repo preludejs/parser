@@ -8,21 +8,21 @@ export function star<A extends Liftable>(
   min = 0
 ): Parser<Parsed<A>[]> {
   const liftedParser = lift(parser)
-  return function (reader) {
+  return function (originalReader) {
     const values: Parsed<A>[] = []
-    let reader_ = reader
+    let reader = originalReader
     while (true) {
-      const result = liftedParser(reader_)
+      const result = liftedParser(reader)
       if (Result.failed(result)) {
         break
       }
       values.push(result.value as Parsed<A>)
-      reader_ = result.reader
+      reader = result.reader
     }
     if (values.length < min) {
-      return Result.fail(reader, `Expected to match minimum length ${min}, matched only ${values.length}.`)
+      return Result.fail(originalReader, `Expected to match minimum length ${min}, matched only ${values.length}.`)
     }
-    return Result.ok(reader_, values)
+    return Result.ok(reader, values)
   }
 }
 

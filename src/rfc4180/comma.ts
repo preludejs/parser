@@ -1,6 +1,6 @@
-import literal from '../literal.js'
+import lit from '../literal.js'
 
 export const comma =
-  literal(',')
+  lit(',')
 
 export default comma

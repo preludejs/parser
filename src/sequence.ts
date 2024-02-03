@@ -6,18 +6,18 @@ export function sequence<T extends Liftable[]>(
   ...parsers: T
 ): Parser<{ [K in keyof T]: Parsed<T[K]> }> {
   const liftedParsers = parsers.map(lift)
-  return function (reader) {
-    const rs: unknown[] = []
-    let reader_ = reader
+  return function (originalReader) {
+    const results: unknown[] = []
+    let reader = originalReader
     for (const parser of liftedParsers) {
-      const result = parser(reader_)
+      const result = parser(reader)
       if (Result.failed(result)) {
-        return Result.fail(reader, `Failed sequence. ${result.reason}`)
+        return Result.fail(originalReader, `Failed sequence. ${result.reason}`)
       }
-      rs.push(result.value)
-      reader_ = result.reader
+      results.push(result.value)
+      reader = result.reader
     }
-    return Result.ok(reader_, rs) as Result.Ok<{ [K in keyof T]: Parsed<T[K]> }>
+    return Result.ok(reader, results) as Result.Ok<{ [K in keyof T]: Parsed<T[K]> }>
   }
 }
 

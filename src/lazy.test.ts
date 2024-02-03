@@ -28,13 +28,13 @@ test('mutually recursive', () => {
     P.Rfc8259.number
 
   const add =
-    P.lazy(() => P.map(P.sequence(expr, P.literal('+'), expr), _ => _[0] + _[2]))
+    P.lazy(() => P.map(P.sequence(expr, '+', expr), _ => _[0] + _[2]))
 
   const mul =
-    P.lazy(() => P.map(P.sequence(expr, P.literal('*'), expr), _ => _[0] * _[2]))
+    P.lazy(() => P.map(P.sequence(expr, '*', expr), _ => _[0] * _[2]))
 
   const grouped =
-    P.lazy(() => P.between(P.literal('('), P.literal(')'), expr))
+    P.lazy(() => P.between('(', ')', expr))
 
   const expr: P.t<number> =
     P.lazy(() => P.longestReentrant(

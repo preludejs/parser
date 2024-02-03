@@ -25,7 +25,7 @@ test('attr', () => {
     )
 
   const attr =
-    P.map(P.seq(P.ws0, id, P.lit('='), str), _ => [_[1], _[3]])
+    P.map(P.seq(P.ws0, id, '=', str), _ => [_[1], _[3]])
 
   const p = P.parser(attr)
 

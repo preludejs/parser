@@ -1,16 +1,18 @@
 import * as Result from './result.js'
 import type * as Parser from './parser.js'
 import type * as Reader from './reader.js'
+import lift from './lift.js'
 
 const reentry = new WeakMap<Reader.t, Set<Parser.t>>()
 
-export function longestReentrant<Parsers extends Parser.t[]>(
+export function longestReentrant<Parsers extends Parser.Liftable[]>(
   ...parsers: Parsers
-): Parser.t<Parser.Parsed<Parsers[number]>> {
+): Parser.t<Parser.Parsed<Parser.Lifted<Parsers[number]>>> {
+  const liftedParsers = parsers.map(lift)
   return function (reader) {
     const set = reentry.get(reader) ?? reentry.set(reader, new Set).get(reader)!
     let result: undefined | Result.Ok = undefined
-    for (const parser of parsers) {
+    for (const parser of liftedParsers) {
       if (set.has(parser)) {
         continue
       }
@@ -25,7 +27,7 @@ export function longestReentrant<Parsers extends Parser.t[]>(
     }
     return result !== undefined ?
       result as Result.Ok<Parser.Parsed<Parsers[number]>> :
-      Result.fail(reader, `None of ${parsers.length} alternatives matched at ${reader.offset}.`)
+      Result.fail(reader, `None of ${liftedParsers.length} alternatives matched at ${reader.offset}.`)
   }
 }
 

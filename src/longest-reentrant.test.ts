@@ -6,7 +6,7 @@ test('reentry', () => {
     | { type: 'Eq', lhs: Node, rhs: Node }
   const p_ =
     (reader: P.Reader.t) =>
-      P.map(P.sequence(p, P.literal('='), p), _ => ({ type: 'Eq' as const, lhs: _[0], rhs: _[2] }))(reader)
+      P.map(P.sequence(p, '=', p), _ => ({ type: 'Eq' as const, lhs: _[0], rhs: _[2] }))(reader)
   const p: P.t<Node> =
     reader =>
       P.first(
@@ -25,10 +25,7 @@ test('reentry', () => {
 })
 
 test('longest', () => {
-  expect(P.parser(P.star(P.longestReentrant(
-    P.literal('a'),
-    P.literal('aa')
-  )))('aaaaa')).toEqual([
+  expect(P.parser(P.star(P.longestReentrant('a', 'aa')))('aaaaa')).toEqual([
     'aa',
     'aa',
     'a'

@@ -1,6 +1,6 @@
-import literal from '../literal.js'
+import lit from '../literal.js'
 
 export const cr =
-  literal('\r')
+  lit('\r')
 
 export default cr

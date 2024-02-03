@@ -1,8 +1,7 @@
-import literal from '../literal.js'
 import map from '../map.js'
 
 const null_ =
-  map(literal('null'), () => null)
+  map('null', () => null)
 
 export { null_ as null }
 
