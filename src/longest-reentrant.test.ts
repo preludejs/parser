@@ -6,7 +6,7 @@ test('reentry', () => {
     | { type: 'Eq', lhs: Node, rhs: Node }
   const p_ =
     (reader: P.Reader.t) =>
-      P.map(P.sequence(p, '=', p), _ => ({ type: 'Eq' as const, lhs: _[0], rhs: _[2] }))(reader)
+      P.map(P.seq(p, '=', p), _ => ({ type: 'Eq' as const, lhs: _[0], rhs: _[2] }))(reader)
   const p: P.t<Node> =
     reader =>
       P.first(

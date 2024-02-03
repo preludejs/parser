@@ -1,5 +1,5 @@
 import map from './map.js'
-import sequence from './sequence.js'
+import seq from './sequence.js'
 import type { Liftable } from './parser.js'
 import ws0 from './ws0.js'
 
@@ -9,7 +9,7 @@ export function trim(
   right: Liftable = left
 ) {
   return function <A extends Liftable>(parser: A) {
-    return map(sequence(left, parser, right), _ => _[1])
+    return map(seq(left, parser, right), _ => _[1])
   }
 }
 
