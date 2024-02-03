@@ -1,18 +1,17 @@
-import literal from '../literal.js'
-import separated0 from '../separated0.js'
+import sep0 from '../sep0.js'
 import between from '../between.js'
 import trim from '../trim.js'
 import type * as Parser from '../parser.js'
 import valueSeparator from './value-separator.js'
 
 export const beginArray =
-  trim()(literal('['))
+  trim()('[')
 
 export const endArray =
-  trim()(literal(']'))
+  trim()(']')
 
-export function array<T>(parser: Parser.t<T>): Parser.t<T[]> {
-  return between(beginArray, endArray, separated0(valueSeparator, parser))
-}
+export const array =
+  <T>(parser: Parser.t<T>): Parser.t<T[]> =>
+    between(beginArray, endArray, sep0(valueSeparator, parser))
 
 export default array

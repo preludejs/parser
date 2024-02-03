@@ -1,6 +1,6 @@
-import literal from '../literal.js'
+import lit from '../lit.js'
 
 export const dquote2 =
-  literal('""')
+  lit('""')
 
 export default dquote2

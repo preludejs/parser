@@ -1,10 +1,10 @@
-import literal from '../literal.js'
+import lit from '../lit.js'
 
 /**
  * @see https://datatracker.ietf.org/doc/html/rfc5234#appendix-B.1
  * @returns parser for horizontal tab.
  */
 export const htab =
-  literal('\x09')
+  lit('\x09')
 
 export default htab

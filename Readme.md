@@ -42,10 +42,10 @@ import * as P from '@prelude/parser'
 * maybe
 * pair
 * right
-* separated0
-* separated1
-* separated2
-* sequence
+* sep0 (alias: separated0)
+* sep1 (alias: separated1)
+* sep2 (alias: separated2)
+* seq (alias: sequence)
 * star
 * times
 * trim
@@ -156,13 +156,13 @@ import * as P from '@prelude/parser'
 
   Returns `b` after successful `a` and `b` sequence match.
 
-* `separated0: <A>(s: Parser<unknown>, a: Parser<A>) => Parser<A[]>`
+* `sep0: <A>(s: Parser<unknown>, a: Parser<A>) => Parser<A[]>`
 
-* `separated1: <A>(s: Parser<unknown>, a: Parser<A>) => Parser<A[]>`
+* `sep1: <A>(s: Parser<unknown>, a: Parser<A>) => Parser<A[]>`
 
-* `separated2: <A>(s: Parser<unknown>, a: Parser<A>) => Parser<A[]>`
+* `sep2: <A>(s: Parser<unknown>, a: Parser<A>) => Parser<A[]>`
 
-* `sequence: <T extends Parser<unknown>[]>(...as: T) => Parser<{ [K in keyof T]: Parsed<T[K]>; }>`
+* `seq: <T extends Parser<unknown>[]>(...as: T) => Parser<{ [K in keyof T]: Parsed<T[K]>; }>`
 
 * `sorrounded: <A>(lhs: Parser<unknown>, rhs: Parser<unknown>, a: Parser<A>) => Parser<A>`
 

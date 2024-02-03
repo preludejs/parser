@@ -1,10 +1,10 @@
-import literal from '../literal.js'
+import lit from '../lit.js'
 
 /**
  * @see https://datatracker.ietf.org/doc/html/rfc5234#appendix-B.1
  * @returns parser for linefeed.
  */
 export const lf =
-  literal('\x0a')
+  lit('\x0a')
 
 export default lf

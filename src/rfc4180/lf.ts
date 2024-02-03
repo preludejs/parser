@@ -1,6 +1,6 @@
-import literal from '../literal.js'
+import lit from '../lit.js'
 
 export const lf =
-  literal('\n')
+  lit('\n')
 
 export default lf

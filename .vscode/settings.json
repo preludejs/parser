@@ -3,5 +3,9 @@
     "**/*.js": {
       "when": "$(basename).ts"
     }
+  },
+  "sonarlint.connectedMode.project": {
+    "connectionId": "prelude",
+    "projectKey": "preludejs_parser"
   }
 }

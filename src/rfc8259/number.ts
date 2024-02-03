@@ -1,15 +1,15 @@
 import charRange from '../char-range.js'
 import either from '../either.js'
 import join from '../join.js'
-import literal from '../literal.js'
+import lit from '../lit.js'
 import map from '../map.js'
 import maybe from '../maybe.js'
-import sequence from '../sequence.js'
+import seq from '../seq.js'
 import star from '../star.js'
 import chars from '../chars.js'
 
 export const decimalPoint =
-  literal('.')
+  lit('.')
 
 export const digit =
   charRange('09')
@@ -22,25 +22,23 @@ export const e =
 
 export const int =
   either(
-    literal('0'),
-    join(sequence(digit19, join(star(digit))))
+    '0',
+    join(seq(digit19, join(star(digit))))
   )
 
 export const minus =
-  literal('-')
+  lit('-')
 
 export const plus =
-  literal('+')
+  lit('+')
 
 export const exp =
-  join(sequence(e, maybe(either(minus, plus)), join(star(digit, 1))))
+  join(seq(e, maybe(either(minus, plus)), join(star(digit, 1))))
 
 export const frac =
-  join(sequence(decimalPoint, join(star(digit, 1))))
+  join(seq(decimalPoint, join(star(digit, 1))))
 
-const number_ =
-  map(join(sequence(maybe(minus), int, maybe(frac), maybe(exp))), parseFloat)
+export const number =
+  map(join(seq(maybe(minus), int, maybe(frac), maybe(exp))), parseFloat)
 
-export { number_ as number }
-
-export default number_
+export default number

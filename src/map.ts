@@ -1,12 +1,17 @@
 import * as Result from './result.js'
-import type * as Parser from './parser.js'
+import lift from './lift.js'
+import type { Parser, Parsed, Liftable, Lifted } from './parser.js'
 
-export function map<A, B>(parser: Parser.t<A>, f: (value: A) => B): Parser.t<B> {
+export function map<A extends Liftable, B>(
+  parser: A,
+  f: (value: Parsed<Lifted<A>>) => B
+): Parser<B> {
+  const liftedParser = lift(parser)
   return function (reader) {
-    const result = parser(reader)
+    const result = liftedParser(reader)
     return Result.failed(result) ?
       result :
-      Result.ok(result.reader, f(result.value))
+      Result.ok(result.reader, f(result.value as Parsed<Lifted<A>>))
   }
 }
 
