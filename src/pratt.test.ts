@@ -20,21 +20,21 @@ const pp =
 test('https://matklad.github.io/2020/04/13/simple-but-powerful-pratt-parsing.html', () => {
   const p = P.parser(P.pratt({
     prefix: {
-      '-': [NaN, 9],
-      '+': [NaN, 9]
+      '-': 9,
+      '+': 9
     },
     infix: {
-      '=': [2, 1],
-      '?': [4, 3],
-      '+': [5, 6],
-      '-': [5, 6],
-      '*': [7, 8],
-      '/': [7, 8],
-      '.': [14, 13]
+      '=': -2,
+      '?': -4,
+      '+': +6,
+      '-': +6,
+      '*': +8,
+      '/': +8,
+      '.': -14
     },
     postfix: {
-      '!': [11, NaN],
-      '[': [11, NaN]
+      '!': 11,
+      '[': 11
     }
   }, P.re(/\w+/i)))
   const t = (s: string) => pp(p(s))

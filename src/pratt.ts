@@ -1,9 +1,9 @@
 import * as P from './index.js'
 
 export type PrattOps = {
-  prefix?: Record<string, [number, number]>
-  infix?: Record<string, [number, number]>
-  postfix?: Record<string, [number, number]>
+  prefix?: Record<string, number>
+  infix?: Record<string, number>
+  postfix?: Record<string, number>
 }
 
 export const pratt =
@@ -15,16 +15,16 @@ export const pratt =
     )
 
     const bpof =
-      (k: keyof typeof bps, lr: 'l' | 'r', op: P.Result.t<string>) =>
+      (k: keyof typeof bps, op: P.Result.t<string>) =>
         !P.Result.failed(op) ?
-          Math.abs(bps[k]?.[op.value]?.[lr === 'l' ? 0 : 1] ?? 0) :
+          bps[k]?.[op.value] ?? 0 :
           0
 
-    function inner(originalReader: P.Reader.t, min = 0) {
+    function inner(reader: P.Reader.t, min = 0) {
 
       // prefix
-      const prefixOp = opParser(originalReader)
-      const prefixBp = bpof('prefix', 'r', prefixOp)
+      const prefixOp = opParser(reader)
+      const prefixBp = bpof('prefix', prefixOp)
       let lhs: P.Result.t<any>
       if (prefixBp) {
         const rhs = inner(prefixOp.reader, prefixBp)
@@ -48,7 +48,7 @@ export const pratt =
 
         // Maybe postfix.
         const postfixOp = opParser(lhs.reader)
-        const postfixBp = bpof('postfix', 'l', postfixOp)
+        const postfixBp = bpof('postfix', postfixOp)
         if (!P.Result.failed(postfixOp) && postfixBp !== 0) {
           if (postfixBp < min) {
             break
@@ -65,8 +65,9 @@ export const pratt =
         }
 
         // Break if the operator has lower precedence.
-        const infixBpl = bpof('infix', 'l', infixOp)
-        const infixBpr = bpof('infix', 'r', infixOp)
+        const infixBp = bpof('infix', infixOp)
+        const infixBpl = infixBp > 0 ? infixBp : Math.abs(infixBp) + 1
+        const infixBpr = infixBp > 0 ? infixBp + 1 : Math.abs(infixBp)
         if (infixBpl < min) {
           break
         }
