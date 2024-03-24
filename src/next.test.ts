@@ -8,3 +8,12 @@ test('next', () => {
   const b = p(a.reader)
   expect(b).toEqual({ reader: { input, offset: 15 }, value: '123' })
 })
+
+test('liftable next', () => {
+  const p = P.next('[')
+  const input = 'foo [123] bar [123] baz'
+  const a = p(P.Reader.of(input))
+  expect(a).toEqual({ reader: { input, offset: 5 }, value: '[' })
+  const b = p(a.reader)
+  expect(b).toEqual({ reader: { input, offset: 15 }, value: '[' })
+})
