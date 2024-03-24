@@ -29,6 +29,8 @@ jobs:
 
       - run: pnpm i
 
+      - run: pnpm tsc
+
       - run: make test
 
       - name: SonarCloud Scan
