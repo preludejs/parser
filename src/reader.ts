@@ -44,6 +44,11 @@ export const rest =
   (reader: Reader): string =>
     reader.input.slice(reader.offset)
 
+/** @returns length of remaining input. */
+export const length =
+  (reader: Reader): number =>
+    reader.input.length - reader.offset
+
 export const slice =
   (reader: Reader, start: number, end: number): string =>
     reader.input.slice(reader.offset + start, reader.offset + end)

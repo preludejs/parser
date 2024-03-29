@@ -6,12 +6,12 @@ export function map<A extends Liftable, B>(
   parser: A,
   f: (value: Parsed<Lifted<A>>) => B
 ): Parser<B> {
-  const liftedParser = lift(parser)
+  const lifted = lift(parser)
   return function (reader) {
-    const result = liftedParser(reader)
+    const result = lifted(reader)
     return Result.failed(result) ?
       result :
-      Result.ok(result.reader, f(result.value as Parsed<Lifted<A>>))
+      Result.ok(reader, result.reader.offset - reader.offset, f(result.value as Parsed<Lifted<A>>))
   }
 }
 

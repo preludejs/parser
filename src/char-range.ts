@@ -15,10 +15,10 @@ export function charRange(ranges: string): Parser.t<string> {
     }
     for (let i = 0; i < ranges.length; i += 2) {
       if (ranges[i] <= c && c <= ranges[i + 1]) {
-        return Result.ok(reader, c, 1)
+        return Result.ok(reader, 1, c)
       }
     }
-    return Result.fail(reader, `Not in char range ${ranges}.`)
+    return Result.fail(reader, 0, `Not in char range ${ranges}.`)
   }
 }
 

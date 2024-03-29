@@ -13,12 +13,12 @@ export function seq<T extends Liftable[]>(
     for (const parser of liftedParsers) {
       const result = parser(reader)
       if (Result.failed(result)) {
-        return Result.fail(originalReader, `Failed sequence. ${result.reason}`)
+        return Result.fail(originalReader, result.reader.offset - originalReader.offset, `Failed sequence. ${result.reason}`)
       }
       results.push(result.value)
       reader = result.reader
     }
-    return Result.ok(reader, results) as Result.Ok<{ [K in keyof T]: Parsed<T[K]> }>
+    return Result.ok(originalReader, reader.offset - originalReader.offset, results) as Result.Ok<{ [K in keyof T]: Parsed<T[K]> }>
   }
 }
 
