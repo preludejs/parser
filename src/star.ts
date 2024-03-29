@@ -20,9 +20,9 @@ export function star<A extends Liftable>(
       reader = result.reader
     }
     if (values.length < min) {
-      return Result.fail(originalReader, `Expected to match minimum length ${min}, matched only ${values.length}.`)
+      return Result.fail(originalReader, reader.offset - originalReader.offset, `Expected to match minimum length ${min}, matched only ${values.length}.`)
     }
-    return Result.ok(reader, values)
+    return Result.ok(originalReader, reader.offset - originalReader.offset, values)
   }
 }
 

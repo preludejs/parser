@@ -7,7 +7,7 @@ export function maybe<A extends Liftable>(parser: A): Parser<undefined | Parsed<
   return function (reader) {
     const result = liftedParser(reader)
     return Result.failed(result) ?
-      Result.ok<undefined>(reader, undefined) :
+      Result.ok(reader, 0, undefined) :
       result as Result.Ok<Parsed<Lifted<A>>>
   }
 }

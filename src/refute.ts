@@ -11,9 +11,9 @@ export const refute =
       }
       const refutation = f(result.value)
       if (Refute.failed(refutation)) {
-        return Result.fail(reader, reason(refutation))
+        return Result.fail(reader, result.length, reason(refutation))
       }
-      return Result.ok(result.reader, result.value)
+      return Result.ok(reader, result.length, result.value)
     }
 
 export default refute

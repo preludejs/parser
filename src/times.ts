@@ -13,12 +13,12 @@ export function times<A extends Liftable>(
     for (let i = 0; i < n; i++) {
       const result = liftedParser(reader)
       if (Result.failed(result)) {
-        return Result.fail(originalReader, `Expected ${n} times, got ${i + 1} times only.`)
+        return Result.fail(originalReader, result.reader.offset - originalReader.offset, `Expected ${n} times, got ${i + 1} times only.`)
       }
       results.push(result.value as Parsed<A>)
       reader = result.reader
     }
-    return Result.ok(reader, results)
+    return Result.ok(originalReader, reader.offset - originalReader.offset, results)
   }
 }
 

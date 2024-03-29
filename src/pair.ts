@@ -15,9 +15,9 @@ export function pair<A extends P.Liftable, B extends P.Liftable>(
     }
     const resultB = liftedB(resultA.reader)
     if (Result.failed(resultB)) {
-      return Result.fail(reader, resultB.reason)
+      return Result.fail(reader, resultA.length, resultB.reason)
     }
-    return Result.ok(resultB.reader, [
+    return Result.ok(reader, resultA.length + resultB.length, [
       resultA.value as P.Parsed<A>,
       resultB.value as P.Parsed<B>
     ])

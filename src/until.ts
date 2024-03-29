@@ -16,12 +16,12 @@ export const until =
           continue
         }
         const length = reader_.offset - reader.offset
-        return Result.ok(result.reader, {
+        return Result.ok(reader, result.reader.offset - reader.offset, {
           head: Reader.slice(reader, 0, length),
           tail: result.value as Parser.Parsed<T>
         })
       }
-      return Result.fail(reader, 'reached end of input')
+      return Result.fail(reader, Reader.length(reader), 'reached end of input')
     }
   }
 

@@ -44,9 +44,9 @@ test('convoluted date', () => {
   const yyyy: P.t<number> =
     intDigits(4)
   const p = P.seq(yyyy, mm, dd2)
-  expect(digit0(P.Reader.of('0'))).toEqual(P.Result.ok(P.Reader.of('0', 1), 0))
-  expect(digit0(P.Reader.of('1'))).toEqual(P.Result.ok(P.Reader.of('1', 1), 1))
-  expect(digit0(P.Reader.of('12'))).toEqual(P.Result.ok(P.Reader.of('12', 1), 1))
+  expect(digit0(P.Reader.of('0'))).toEqual(P.Result.ok(P.Reader.of('0', 1), 1, 0))
+  expect(digit0(P.Reader.of('1'))).toEqual(P.Result.ok(P.Reader.of('1', 1), 1, 1))
+  expect(digit0(P.Reader.of('12'))).toEqual(P.Result.ok(P.Reader.of('12', 1), 1, 1))
   expect(P.parse(yyyy, '2021')).toEqual(2021)
   expect(P.parse(mm, '05')).toEqual(4)
   expect(P.parse(dd2, '01')).toEqual(1)

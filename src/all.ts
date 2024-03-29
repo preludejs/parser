@@ -20,7 +20,7 @@ export function all<T>(parser: Parser.t<T>) {
       values.push(result.value)
       reader_ = result.reader
     }
-    return Result.ok(Reader.of(reader.input, reader.input.length), values)
+    return Result.ok(reader, Reader.length(reader), values)
   }
 }
 

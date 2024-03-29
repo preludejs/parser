@@ -39,7 +39,7 @@ export function regexp(
     if (!advanceIndices) {
       throw new Error('invalid advance indices')
     }
-    return Result.ok(reader, valueString, advanceIndices[1] - reader.offset)
+    return Result.ok(reader, advanceIndices[1] - reader.offset, valueString)
   }
 }
 

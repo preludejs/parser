@@ -12,7 +12,7 @@ import type { Parser, Liftable } from './parser.js'
  */
 export const sep0 =
   <A>(separator: Liftable, parser: Parser<A>): Parser<A[]> =>
-    rescue(sep1(separator, parser), _ => Result.ok(_.reader, []))
+    rescue(sep1(separator, parser), _ => Result.ok(_.reader, 0, [] as A[]))
 
 export {
   sep0 as separated0
