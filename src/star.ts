@@ -17,6 +17,9 @@ export function star<A extends Liftable>(
         break
       }
       values.push(result.value as Parsed<A>)
+      if (reader.offset === result.reader.offset) {
+        break
+      }
       reader = result.reader
     }
     if (values.length < min) {
