@@ -4,17 +4,17 @@ import type * as Parser from './parser.js'
 type Indices = [number, number][] & { groups?: Record<string, [number, number]> }
 
 /**
- * @param regexp regular expression to match.
+ * @param inputRe regular expression to match.
  * @param valueGroup group to use as parsing result (default 0).
  * @param advanceGroup group to use to advance parser on successful match (default 0).
  * @returns parser consuming input matching provided regular expression.
  */
 export function regexp(
-  regexp: RegExp,
+  inputRe: RegExp,
   valueGroup: number | string = 0,
   advanceGroup: number | string = 0
 ): Parser.t<string> {
-  const re = new RegExp(regexp.source, 'dy' + regexp.flags.replace(/[dyg]/g, ''))
+  const re = new RegExp(inputRe.source, 'dy' + inputRe.flags.replace(/[dyg]/g, ''))
   return function (reader) {
     re.lastIndex = reader.offset
     const match = re.exec(reader.input)

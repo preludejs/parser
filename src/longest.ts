@@ -12,10 +12,11 @@ export function longest<Parsers extends Parser.t[]>(
     let result: undefined | Result.Ok = undefined
     for (const parser of parsers) {
       const result_ = parser(reader)
-      if (!Result.failed(result_)) {
-        if (result === undefined || result.reader.offset < result_.reader.offset) {
-          result = result_
-        }
+      if (Result.failed(result_)) {
+        continue
+      }
+      if (result === undefined || result.reader.offset < result_.reader.offset) {
+        result = result_
       }
     }
     return result !== undefined ?

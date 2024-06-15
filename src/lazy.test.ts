@@ -1,3 +1,6 @@
+/* eslint-disable no-use-before-define */
+
+import { test, expect } from '@jest/globals'
 import * as P from './index.js'
 
 test('mutually recursive', () => {

@@ -10,7 +10,7 @@ import true_ from './true.js'
 import type * as Reader from '../reader.js'
 import type * as Parser from '../parser.js'
 
-export const value: Parser.t<unknown> =
+export const value: Parser.t =
   (reader: Reader.t) =>
     first(
       string_,

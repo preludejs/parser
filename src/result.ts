@@ -43,6 +43,6 @@ export const eat =
 /** @returns failure result. */
 export const fail =
   (reader: Reader.t, reason: string): Fail => ({
-    reader: reader,
+    reader,
     reason
   })
