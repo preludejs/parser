@@ -2,6 +2,7 @@
 .vscode
 *.sh
 *.test.*
+coverage
 jest.*
 Makefile
 tsconfig.json
