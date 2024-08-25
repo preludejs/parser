@@ -23,9 +23,10 @@ test('switch', () => {
   expect(parser('foo')).toEqual([
     { type: 'text', value: 'foo' }
   ])
-  expect(parser('<a/><!--comment-->foo')).toEqual([
+  expect(parser('<a/><!--comment-->foo<?xml?>')).toEqual([
     { type: 'element', name: 'a' },
     { type: 'comment', value: 'comment' },
-    { type: 'text', value: 'foo' }
+    { type: 'text', value: 'foo' },
+    { type: 'pi', value: 'xml' }
   ])
 })
