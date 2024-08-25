@@ -4,15 +4,22 @@ import * as Result from './result.js'
 import type * as Parser from './parser.js'
 
 const switch_ =
-  (cases: Record<string, Parser.t>) => {
+  ({ '': defaultCase, ...cases }: Record<string, Parser.t>) => {
     const trie = RadixTrie.of(Object.keys(cases))
     return (reader: Reader.t) => {
-      const prefix = RadixTrie.longestPrefix(trie, reader.input, reader.offset)
-      const parser = prefix != null ? cases[prefix] : null
-      if (parser != null) {
-        return parser(reader)
+      const key = RadixTrie.longestPrefix(trie, reader.input, reader.offset)
+      if (key == null) {
+        if (defaultCase == null) {
+          return Result.fail(reader, 'Expected one of cases.')
+        } else {
+          return defaultCase(reader)
+        }
       }
-      return Result.fail(reader, `Expected one of ${Object.keys(cases).length} cases.`)
+      const parser = cases[key]
+      if (parser == null) {
+        return Result.fail(reader, `Expected parser for ${key} case.`)
+      }
+      return parser(reader)
     }
   }
 
