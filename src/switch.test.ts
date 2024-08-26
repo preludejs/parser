@@ -2,12 +2,12 @@ import * as P from './index.js'
 
 test('switch', () => {
   const id = P.whileNotChars(' /<>', 1)
-  const comment = P.map(P.betweenLiterals('<!--', '-->'), value => ({ type: 'comment', value }))
-  const element = P.map(P.seq('<', id, '/>'), ([ , name ]) => ({ type: 'element', name }))
-  const pi = P.map(P.betweenLiterals('<?', '?>'), value => ({ type: 'pi', value }))
-  const decl = P.map(P.betweenLiterals('<!', '>'), value => ({ type: 'decl', value }))
-  const cdata = P.map(P.betweenLiterals('<![CDATA[', ']]>'), value => ({ type: 'cdata', value }))
-  const text = P.map(P.whileNotChars('<', 1), value => ({ type: 'text', value }))
+  const comment = P.map(P.betweenLiterals('<!--', '-->'), value => ({ type: 'comment' as const, value }))
+  const element = P.map(P.seq('<', id, '/>'), ([ , name ]) => ({ type: 'element' as const, name }))
+  const pi = P.map(P.betweenLiterals('<?', '?>'), value => ({ type: 'pi' as const, value }))
+  const decl = P.map(P.betweenLiterals('<!', '>'), value => ({ type: 'decl' as const, value }))
+  const cdata = P.map(P.betweenLiterals('<![CDATA[', ']]>'), value => ({ type: 'cdata' as const, value }))
+  const text = P.map(P.whileNotChars('<', 1), value => ({ type: 'text' as const, value }))
   const misc = P.switch({
     '<': element,
     '<!--': comment,
