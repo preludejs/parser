@@ -2,11 +2,11 @@ import * as P from './index.js'
 
 test('switch', () => {
   const id = P.whileNotChars(' /<>', 1)
-  const comment = P.map(P.betweenLiterals('<!--', '-->'), value => ({ type: 'comment' as const, value }))
+  const comment = P.map(P.between('<!--', '-->'), value => ({ type: 'comment' as const, value }))
   const element = P.map(P.seq('<', id, '/>'), ([ , name ]) => ({ type: 'element' as const, name }))
-  const pi = P.map(P.betweenLiterals('<?', '?>'), value => ({ type: 'pi' as const, value }))
-  const decl = P.map(P.betweenLiterals('<!', '>'), value => ({ type: 'decl' as const, value }))
-  const cdata = P.map(P.betweenLiterals('<![CDATA[', ']]>'), value => ({ type: 'cdata' as const, value }))
+  const pi = P.map(P.between('<?', '?>'), value => ({ type: 'pi' as const, value }))
+  const decl = P.map(P.between('<!', '>'), value => ({ type: 'decl' as const, value }))
+  const cdata = P.map(P.between('<![CDATA[', ']]>'), value => ({ type: 'cdata' as const, value }))
   const text = P.map(P.whileNotChars('<', 1), value => ({ type: 'text' as const, value }))
   const misc = P.switch({
     '<': element,

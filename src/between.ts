@@ -1,14 +1,18 @@
-import map from './map.js'
-import seq from './seq.js'
-import type { Parser, Liftable } from './parser.js'
+import * as Reader from './reader.js'
+import * as Result from './result.js'
 
-/** @returns `a` parser sorrounded by `start` and `end`. */
-export function between<A>(
-  start: Liftable,
-  end: Liftable,
-  parser: Parser<A>
-): Parser<A> {
-  return map(seq(start, parser, end), _ => _[1])
+/** @returns parser matching string between `start` and `end` literals. */
+export function between(start: string, end = start) {
+  return function (reader: Reader.t) {
+    if (!Reader.startsWith(reader, start)) {
+      return Result.fail(reader, `expected start literal ${start}`)
+    }
+    const offset = Reader.offsetOf(reader, end, start.length)
+    if (offset === -1) {
+      return Result.fail(reader, `expected end literal ${end}`)
+    }
+    return Result.ok(reader, Reader.slice(reader, start.length, offset), offset + end.length)
+  }
 }
 
 export default between

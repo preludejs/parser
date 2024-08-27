@@ -5,7 +5,6 @@ import lit from '../lit.js'
 import map from '../map.js'
 import right from '../right.js'
 import seq from '../seq.js'
-import between from '../between.js'
 import star from '../star.js'
 import times from '../times.js'
 import chars from '../chars.js'
@@ -32,6 +31,6 @@ export const quotationMark =
   lit('"')
 
 export const string =
-  join(between(quotationMark, quotationMark, star(char)))
+  join(map(seq(quotationMark, star(char), quotationMark), _ => _[1]))
 
 export default string
