@@ -17,7 +17,10 @@ test('comment', () => {
 test('digit', () => {
   const p = P.map(P.re(/\d/), _ => parseInt(_, 10))
   expect(P.parse(p, '1')).toEqual(1)
-  expect(() => P.parse(p, '123')).toThrow('Expected exhaustive result, unparsed 2.')
+  expect(() => P.parse(p, '123')).toThrow(`Expected exhaustive result, parsed 1 (unparsed 2).
+
+123
+ ^ 1:2`)
 })
 
 test('convoluted date', () => {
