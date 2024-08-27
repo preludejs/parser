@@ -1,6 +1,6 @@
 import { test, expect } from '@jest/globals'
 import * as P from './index.js'
-import * as R from '@prelude/refute'
+import * as $ from '@prelude/refute'
 
 test('comment', () => {
   const comment = P.re(/<!--(.*?)-->/, 1)
@@ -24,9 +24,9 @@ test('convoluted date', () => {
   const digit0: P.t<number> =
     P.map(P.re(/\d/), _ => parseInt(_, 10))
   const dd2: P.t<number> =
-    P.refute(P.map(P.seq(digit0, digit0), ([ a, b ]) => (a * 10) + b), R.between(1, 31))
+    P.refute(P.map(P.seq(digit0, digit0), ([ a, b ]) => (a * 10) + b), $.between(1, 31))
   const mm: P.t<number> =
-    P.refute(P.map(P.seq(digit0, digit0), ([ a, b ]) => (a * 10) + b - 1), R.between(0, 11))
+    P.refute(P.map(P.seq(digit0, digit0), ([ a, b ]) => (a * 10) + b - 1), $.between(0, 11))
   function chars2(chars_: string, min = 1, max = Infinity): P.t<string> {
     return function (reader) {
       let i = 0

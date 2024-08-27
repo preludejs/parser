@@ -37,7 +37,7 @@ test('mutually recursive', () => {
     P.lazy(() => P.map(P.seq(expr, '*', expr), _ => _[0] * _[2]))
 
   const grouped =
-    P.lazy(() => P.between('(', ')', expr))
+    P.lazy(() => P.map(P.seq('(', expr, ')'), _ => _[1]))
 
   const expr: P.t<number> =
     P.lazy(() => P.longestReentrant(
