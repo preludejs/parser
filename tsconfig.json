@@ -1,12 +1,15 @@
 {
-  "extends": "@tsconfig/node18/tsconfig.json",
+  "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
-    "module": "ES2020",
-    "moduleResolution": "Node",
-    "noImplicitAny": false,
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022"],
+    "noImplicitAny": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "outDir": "mjs"
   },
   "include": [
     "src"

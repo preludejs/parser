@@ -18,7 +18,7 @@ export const nameSeparator =
 
 export const member =
   <T>(value: Parser.t<T>): Parser.t<[string, undefined | T]> =>
-    map(seq(string_, nameSeparator, value), _ => [_[0], _[2]])
+    map(seq(string_, nameSeparator, value), _ => [ _[0], _[2] ])
 
 export const object =
   <T>(value: Parser.t<T>): Parser.t<Record<string, undefined | T>> =>

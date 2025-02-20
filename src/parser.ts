@@ -36,6 +36,42 @@ export type IntersectionOfUnion<T> =
     R :
     never
 
+export const lineColumn =
+  (input: string, offset: number) => {
+    let line = 1
+    let column = 1
+    for (let i = 0; i < offset; i++) {
+      if (input[i] === '\n') {
+        line++
+        column = 1
+      } else {
+        column++
+      }
+    }
+    return { line, column }
+  }
+
+export const highlight =
+  (input: string, offset: number, context = 20) => {
+    const start = Math.max(0, offset - context)
+    const end = Math.min(input.length, offset + context)
+    let fragment = input
+      .slice(start, end)
+      .replace(/\n/g, '⏎')
+      .replace(/\t/g, '⇥')
+      .replace(/\r/g, '⏵')
+    const { line, column } = lineColumn(input, offset)
+    let pointer = ' '.repeat(offset - start) + '^ ' + line + ':' + column
+    if (offset < start) {
+      fragment = '…' + fragment
+      pointer = ' ' + pointer
+    }
+    if (offset > end) {
+      fragment = fragment + '…'
+    }
+    return `${fragment}\n${pointer}`
+  }
+
 export function parse<A>(parser_: Parser<A>, input: string): A {
   const reader = Reader.of(input)
   const result = parser_(reader)
@@ -43,7 +79,7 @@ export function parse<A>(parser_: Parser<A>, input: string): A {
     throw new Error(result.reason)
   }
   if (!Reader.end(result.reader)) {
-    throw new Error(`Expected exhaustive result, unparsed ${result.reader.input.length - result.reader.offset}.`)
+    throw new Error(`Expected exhaustive result, parsed ${result.reader.offset} (unparsed ${result.reader.input.length - result.reader.offset}).\n\n${highlight(input, result.reader.offset)}`)
   }
   return result.value
 }

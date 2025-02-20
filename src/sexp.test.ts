@@ -1,3 +1,4 @@
+import { test, expect } from '@jest/globals'
 import * as Sexp from './sexp.js'
 
 test('basic', () => {

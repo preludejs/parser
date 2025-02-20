@@ -2,11 +2,11 @@ test:
 	pnpm t
 
 clean:
-	rm -Rf cjs mjs test/*.js
+	rm -Rf cjs mjs src/*.js test/*.js
 
 build-cjs:
 	rm -Rf cjs
-	pnpm exec tsc -m commonjs -d --sourceMap --outDir cjs
+	pnpm exec tsc --module CommonJS --moduleResolution Node10 -d --sourceMap --outDir cjs
 	echo '{"type":"commonjs"}' > cjs/package.json
 
 build-mjs:

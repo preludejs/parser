@@ -8,7 +8,7 @@ export function trim(
   left: Liftable = ws0,
   right: Liftable = left
 ) {
-  return function <A extends Liftable>(parser: A) {
+  return function <A extends Liftable> (parser: A) {
     return map(seq(left, parser, right), _ => _[1])
   }
 }

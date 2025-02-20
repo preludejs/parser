@@ -1,3 +1,4 @@
+import { test, expect } from '@jest/globals'
 import * as P from './index.js'
 
 test('betweenLiterals', () => {
@@ -25,9 +26,9 @@ test('attr', () => {
     )
 
   const attr =
-    P.map(P.seq(P.ws0, id, '=', str), _ => [_[1], _[3]])
+    P.map(P.seq(P.ws0, id, '=', str), _ => [ _[1], _[3] ])
 
   const p = P.parser(attr)
 
-  expect(p('foo="bar"')).toEqual(["foo", "bar"])
+  expect(p('foo="bar"')).toEqual([ 'foo', 'bar' ])
 })

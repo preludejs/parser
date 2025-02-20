@@ -5,7 +5,7 @@ import type { Parser, Parsed, Liftable } from './parser.js'
 
 export const firstExhaustive =
   <Parsers extends Liftable[]>(
-  ...parsers: Parsers
+    ...parsers: Parsers
   ): Parser<Parsed<Parsers[number]>> => {
     const liftedParsers = parsers.map(lift)
     return (reader: Reader.t) => {

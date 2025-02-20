@@ -4,10 +4,16 @@ import type * as Reader from './reader.js'
 
 const reentry = new WeakMap<Reader.t, Set<Parser.t>>()
 
+function make(reader: Reader.t) {
+  const set = new Set<Parser.t>()
+  reentry.set(reader, set)
+  return set
+}
+
 /** Union where first successful match is returned. */
 export function first<T extends Parser.t[]>(...parsers: T): T[number] {
   return function (reader) {
-    const set = reentry.get(reader) ?? reentry.set(reader, new Set).get(reader)!
+    const set = reentry.get(reader) ?? make(reader)
     for (const parser of parsers) {
       if (set.has(parser)) {
         continue

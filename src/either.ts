@@ -12,7 +12,7 @@ export function either<A extends Liftable, B extends Liftable>(
   return function (reader) {
     const result = liftedA(reader) as Result.t<Parsed<A>>
     return Result.failed(result) ?
-      liftedB(reader) as Result.t<Parsed<B>>:
+      liftedB(reader) as Result.t<Parsed<B>> :
       result
   }
 }

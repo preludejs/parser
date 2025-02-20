@@ -1,6 +1,6 @@
 export type Reader = {
-  input: string,
-  offset: number
+  readonly input: string,
+  readonly offset: number
 }
 
 export type t =
@@ -12,6 +12,11 @@ export const of =
     input,
     offset
   })
+
+/** @returns cloned reader as mutable object. */
+export const mutable =
+  (reader: Reader): { input: string, offset: number } =>
+    ({ ...reader })
 
 export const advanced =
   (reader: Reader, advance: number): Reader => ({
@@ -38,6 +43,11 @@ export const offsetOf =
 export const rest =
   (reader: Reader): string =>
     reader.input.slice(reader.offset)
+
+/** @returns length of remaining input. */
+export const length =
+  (reader: Reader): number =>
+    reader.input.length - reader.offset
 
 export const slice =
   (reader: Reader, start: number, end: number): string =>

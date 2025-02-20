@@ -1,7 +1,7 @@
 {
   "testEnvironment": "node",
   "testMatch": [
-    "<rootDir>/src/(*.)test.ts"
+    "<rootDir>/src/**/*.test.ts"
   ],
   "transform": {
     "^.+\\.(t|j)sx?$": ["@swc/jest"]
