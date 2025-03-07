@@ -20,7 +20,7 @@ export type Result<T = unknown> =
   | Fail
 
 /** Parser result of some type (default `unknown`). */
-export type t<T> =
+export type t<T = unknown> =
   Result<T>
 
 /** @returns parsed result with provided value and optional reader advance. */

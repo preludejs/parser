@@ -5,7 +5,10 @@ import next from './next.js'
 
 /**
  * Tries to find all maches advancing by single character until end of reader.
+ *
  * Always fully consumes reader.
+ * 
+ * Can be used to ie. find all occurrences of emails in text file etc.
  */
 export function all<T>(parser: Parser.t<T>) {
   const next_ = next(parser)

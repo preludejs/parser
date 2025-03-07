@@ -5,7 +5,7 @@ import ws0 from './ws0.js'
 
 /** @returns parser with left (default {@link ws0}) trim parser. */
 export function ltrim(
-  left: Parser.Liftable = ws0
+  left: Parser.ParserLike = ws0
 ) {
   return function <A> (a: Parser.t<A>): Parser.t<A> {
     return map(seq(left, a), _ => _[1])

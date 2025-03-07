@@ -1,9 +1,9 @@
 import * as Result from './result.js'
 import lift from './lift.js'
-import type { Parser, Liftable, Parsed } from './parser.js'
+import type { Parser, ParserLike, Parsed } from './parser.js'
 
 /** @returns parser matching at least `min` (default 0) times `a` parser. */
-export function star<A extends Liftable>(
+export function star<A extends ParserLike>(
   parser: A,
   min = 0
 ): Parser<Parsed<A>[]> {

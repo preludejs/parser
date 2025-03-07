@@ -1,9 +1,9 @@
 import * as Result from './result.js'
-import type { Liftable, Parsed, Parser } from './parser.js'
+import type { ParserLike, Parsed, Parser } from './parser.js'
 import lift from './lift.js'
 
 /** @returns parser matching either `a` or `b`. */
-export function either<A extends Liftable, B extends Liftable>(
+export function either<A extends ParserLike, B extends ParserLike>(
   a: A,
   b: B
 ): Parser<Parsed<A> | Parsed<B>> {

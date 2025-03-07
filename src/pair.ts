@@ -2,7 +2,7 @@ import type * as P from './parser.js'
 import * as Result from './result.js'
 import lift from './lift.js'
 
-export function pair<A extends P.Liftable, B extends P.Liftable>(
+export function pair<A extends P.ParserLike, B extends P.ParserLike>(
   a: A,
   b: B
 ): P.t<[ P.Parsed<A>, P.Parsed<B> ]> {

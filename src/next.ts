@@ -8,7 +8,7 @@ import type * as Parser from './parser.js'
  * @see {@link all} to list all matches.
  * @see {@link until} to access head and tail of match.
  */
-export function next<T extends Parser.Liftable>(parser: T): Parser.t<Parser.Parsed<T>> {
+export function next<T extends Parser.ParserLike>(parser: T): Parser.t<Parser.Parsed<T>> {
   const parser_ = lift(parser)
   return (reader: Reader.t) => {
     const reader_ = Reader.mutable(reader)
