@@ -15,12 +15,12 @@ export const pratt =
     )
 
     const bpof =
-      (k: keyof typeof bps, op: P.Result.t<string>) =>
+      (k: keyof typeof bps, op: P.Result.t<string>): number =>
         !P.Result.failed(op) ?
-          bps[k]?.[op.value] ?? 0 :
+          (bps[k] as any)?.[op.value] as number ?? 0 :
           0
 
-    function inner(reader: P.Reader.t, min = 0) {
+    function inner(reader: P.Reader.t, min = 0): P.Result.t<any> {
 
       // prefix
       const prefixOp = opParser(reader)
