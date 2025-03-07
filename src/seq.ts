@@ -1,9 +1,9 @@
 import * as Result from './result.js'
 import lift from './lift.js'
-import type { Liftable, Parsed, Parser } from './parser.js'
+import type { ParserLike, Parsed, Parser } from './parser.js'
 
 /** @returns parser matching each provided parsers in sequence. */
-export function seq<T extends Liftable[]>(
+export function seq<T extends ParserLike[]>(
   ...parsers: T
 ): Parser<{ [K in keyof T]: Parsed<T[K]> }> {
   const liftedParsers = parsers.map(lift)

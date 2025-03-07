@@ -1,9 +1,9 @@
 import * as Reentry from './reentry.js'
 import * as Result from './result.js'
 import lift from './lift.js'
-import type { Parser, Parsed, Liftable } from './parser.js'
+import type { Parser, Parsed, ParserLike } from './parser.js'
 
-export function longestReentrant<T extends Liftable[]>(
+export function longestReentrant<T extends ParserLike[]>(
   ...parsers: T
 ): Parser<Parsed<T[number]>> {
   const liftedParsers = parsers.map(lift)

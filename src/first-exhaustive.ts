@@ -1,10 +1,10 @@
 import * as Reader from './reader.js'
 import * as Result from './result.js'
 import lift from './lift.js'
-import type { Parser, Parsed, Liftable } from './parser.js'
+import type { Parser, Parsed, ParserLike } from './parser.js'
 
 export const firstExhaustive =
-  <Parsers extends Liftable[]>(
+  <Parsers extends ParserLike[]>(
     ...parsers: Parsers
   ): Parser<Parsed<Parsers[number]>> => {
     const liftedParsers = parsers.map(lift)

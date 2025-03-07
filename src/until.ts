@@ -5,7 +5,7 @@ import lift from './lift.js'
 
 /** @returns parser that consumes reader until tail-parser succeeds. */
 export const until =
-  <T extends Parser.Liftable>(parser: T): Parser.t<{ head: string, tail: Parser.Parsed<T> }> => {
+  <T extends Parser.ParserLike>(parser: T): Parser.t<{ head: string, tail: Parser.Parsed<T> }> => {
     const parser_ = lift(parser)
     return (reader: Reader.t) => {
       const reader_ = Reader.mutable(reader)

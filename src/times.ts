@@ -1,8 +1,8 @@
 import * as Result from './result.js'
-import type { Parser, Parsed, Liftable } from './parser.js'
+import type { Parser, Parsed, ParserLike } from './parser.js'
 import lift from './lift.js'
 
-export function times<A extends Liftable>(
+export function times<A extends ParserLike>(
   n: number,
   parser: A
 ): Parser<Parsed<A>[]> {

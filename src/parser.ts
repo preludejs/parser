@@ -17,12 +17,14 @@ export type Parsed<T> =
         string :
         never
 
-export type Liftable<T = unknown> =
+/** Parser-like is a string, regex or parser. */
+export type ParserLike<T = unknown> =
   | string
   | RegExp
   | Parser<T>
 
-export type Lifted<T extends Liftable> =
+/** Extracts parser type from parser-like type. */
+export type ParserOf<T extends ParserLike> =
   T extends string ?
     Parser<T> :
     T extends RegExp ?
@@ -36,6 +38,9 @@ export type IntersectionOfUnion<T> =
     R :
     never
 
+/**
+ * @returns line and column from provided offset in input.
+ */
 export const lineColumn =
   (input: string, offset: number) => {
     let line = 1
@@ -51,6 +56,9 @@ export const lineColumn =
     return { line, column }
   }
 
+/**
+ * @returns highlighted fragment of input with pointer to offset.
+ */
 export const highlight =
   (input: string, offset: number, context = 20) => {
     const start = Math.max(0, offset - context)
@@ -72,6 +80,10 @@ export const highlight =
     return `${fragment}\n${pointer}`
   }
 
+/**
+ * @returns parsed value from parser.
+ * @throws If parser fails or input is not fully exhausted.
+ */
 export function parse<A>(parser_: Parser<A>, input: string): A {
   const reader = Reader.of(input)
   const result = parser_(reader)

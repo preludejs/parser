@@ -1,16 +1,16 @@
-import type { Liftable, Lifted } from './parser.js'
+import type { ParserLike, ParserOf } from './parser.js'
 import re from './regexp.js'
 import lit from './lit.js'
 
 export const lift =
-  <T extends Liftable>(liftable: T): Lifted<T> => {
+  <T extends ParserLike>(liftable: T): ParserOf<T> => {
     if (typeof liftable === 'string') {
-      return lit(liftable) as Lifted<T>
+      return lit(liftable) as ParserOf<T>
     }
     if (liftable instanceof RegExp) {
-      return re(liftable) as Lifted<T>
+      return re(liftable) as ParserOf<T>
     }
-    return liftable as Lifted<T>
+    return liftable as ParserOf<T>
   }
 
 export default lift

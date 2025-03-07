@@ -6,7 +6,7 @@ import type * as P from './parser.js'
 
 /** @returns parser that parses `parser` separated by `separator` at least once. */
 export const sep2 =
-  <A>(separator: P.Liftable, parser: P.t<A>): P.t<A[]> =>
+  <A>(separator: P.ParserLike, parser: P.t<A>): P.t<A[]> =>
     map(seq(parser, star(right(separator, parser), 1)), _ => [ _[0], ..._[1] ])
 
 export {

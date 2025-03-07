@@ -1,9 +1,9 @@
 import map from './map.js'
 import seq from './seq.js'
-import type { Parser, Liftable } from './parser.js'
+import type { Parser, ParserLike } from './parser.js'
 
 /** @returns `a` parser sorrounded by `s` at the beginning and at the end. */
-export function between1<A>(startEnd: Liftable, parser: Parser<A>): Parser<A> {
+export function between1<A>(startEnd: ParserLike, parser: Parser<A>): Parser<A> {
   return map(seq(startEnd, parser, startEnd), _ => _[1])
 }
 
